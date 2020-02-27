@@ -1,4 +1,27 @@
-# Webpack Starter Kit
+# Flight Tracker:
+
+## dependencies:
+
+* bcrypt
+-> A library to help with hashing user information
+```
+npm install bcrypt
+```
+* chai
+-> Library used for testing classes
+```
+npm install moment 
+```
+* chai-spies
+-> Library extension used for testing localstorage and fetch
+```
+npm install moment 
+```
+* moment 
+-> Library used for manipulating time data.
+```
+npm install moment 
+```
 
 ## Clone This Repo
 
