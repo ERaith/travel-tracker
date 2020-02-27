@@ -10,27 +10,22 @@ import "./css/application.scss";
 // An example of how you tell webpack to use an image (also need to link to it in the index.html)
 import "./images/turing-logo.png";
 
-let user = {
-  role: "anonymous"
-};
+
+import User from './user';
 
 
-//Initialize User
-
-//
-
-
+let currentUser = new User("Erik");
 
 
 // Show div html based on role
-if (user.role == "anonymous") {
+if (currentUser.role == "anonymous") {
   $("div.anonymous").show();
 }
 
-if (user.role == "end_user") {
+if (currentUser.role == "end_user") {
   $("div.end_user").show();
 }
 
-if (user.role == "manager") {
+if (currentUser.role == "manager") {
   $("div.manager").show();
 }
