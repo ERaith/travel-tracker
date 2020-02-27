@@ -1,12 +1,24 @@
 # Flight Tracker:
 
-## dependencies:
+## Dependencies:
 
 * bcrypt
 -> A library to help with hashing user information
 ```
 npm install bcrypt
 ```
+* moment 
+-> Library used for manipulating time data.
+```
+npm install moment 
+```
+* jquery 
+-> 
+```
+npm install moment 
+```
+
+## Dev-Dependencies:
 * chai
 -> Library used for testing classes
 ```
@@ -14,11 +26,6 @@ npm install moment
 ```
 * chai-spies
 -> Library extension used for testing localstorage and fetch
-```
-npm install moment 
-```
-* moment 
--> Library used for manipulating time data.
 ```
 npm install moment 
 ```
