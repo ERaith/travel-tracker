@@ -12,21 +12,28 @@ import "./images/turing-logo.png";
 
 
 import User from './user';
+import DomUpdate from './domUpdate';
 
+let domUpdates = new DomUpdate();
 
-let currentUser = new User("Morey Flanders");
-console.log(currentUser)
-currentUser.login("travel2020")
+function start() {
+  let currentUser = new User("John");
+  // let currentUser = new User("Morey Flanders");
+  domUpdates.loginForm(currentUser);
+  // currentUser.login("travel2020")
 
-// Show div html based on role
-if (currentUser.role == "anonymous") {
-  $("div.anonymous").show();
-}
+  // Show div html based on role
+  if (currentUser.role == "anonymous") {
+    $("div.anonymous").show();
+  }
+  
+  if (currentUser.role == "end_user") {
+    $("div.end_user").show();
+  }
+  
+  if (currentUser.role == "manager") {
+    $("div.manager").show();
+  }  
+};
 
-if (currentUser.role == "end_user") {
-  $("div.end_user").show();
-}
-
-if (currentUser.role == "manager") {
-  $("div.manager").show();
-}
+start();

@@ -2,14 +2,13 @@ const usersInfo = require("../private/userDB");
 var bcrypt = require("bcryptjs");
 
 export function authenticate(userName, passwordAttempt) {
-  let isValid = false;
   let curUser = usersInfo.travelers.find(user => {
     return user.name === userName;
   });
 
-
-  let hash = curUser.password;
+  
   if (curUser) {
+    let hash = curUser.password;
     if (bcrypt.compareSync(passwordAttempt, hash)) {
       return {
         message: "Login Successfull",

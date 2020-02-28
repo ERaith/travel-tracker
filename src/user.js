@@ -1,9 +1,8 @@
 import DatabaseController from "./databaseController.js";
-var bcrypt = require('bcryptjs');
 
 class User {
   constructor(userName) {
-    this.name = userName;
+    this.name = userName||"anon";
     let role = "anonymous";
     let password = "test";
     let loggedIn = false;
@@ -23,6 +22,9 @@ class User {
         return response.message;
       }
     };
+  }
+  updateName(name) {
+    this.name = name;
   }
 }
 

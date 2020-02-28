@@ -7,7 +7,6 @@ class DatabaseController {
   }
   loginAttempt(userName,password) {
     let hexPassword = password;
-    // console.log(authenticate(userName,hexPassword))
     return authenticate(userName,hexPassword);
   }
 }
