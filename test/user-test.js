@@ -11,6 +11,7 @@ describe("See if the User tests are running", function() {
       let newUser = new User("Jeff");
       expect(newUser.name).to.equal("Jeff");
     });
+
     it("should be able to login", function() {
       let newUser = new User("Guthry Tute");
       

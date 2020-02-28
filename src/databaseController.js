@@ -2,13 +2,12 @@ import {authenticate} from "./auth.js";
 
 class DatabaseController {
   constructor() {
-    let hash = () => {
-      return "hased-password";
-    };
+    let hash = () => {}
     this.token = "token placeholder";
   }
   loginAttempt(userName,password) {
     let hexPassword = password;
+    // console.log(authenticate(userName,hexPassword))
     return authenticate(userName,hexPassword);
   }
 }

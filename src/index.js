@@ -14,8 +14,9 @@ import "./images/turing-logo.png";
 import User from './user';
 
 
-let currentUser = new User("Erik");
-
+let currentUser = new User("Morey Flanders");
+console.log(currentUser)
+currentUser.login("travel2020")
 
 // Show div html based on role
 if (currentUser.role == "anonymous") {

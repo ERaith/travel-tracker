@@ -1,4 +1,5 @@
 import DatabaseController from "./databaseController.js";
+var bcrypt = require('bcryptjs');
 
 class User {
   constructor(userName) {
@@ -8,9 +9,12 @@ class User {
     let loggedIn = false;
     let id = null;
     this.databaseController = new DatabaseController();
-    this.login = (passwordEntered) => {
-      let response = this.databaseController.loginAttempt(this.name,passwordEntered)
-      if(response.message === 'Login Successfull') {
+    this.login = passwordEntered => {
+      let response = this.databaseController.loginAttempt(
+        this.name,
+        passwordEntered
+      );
+      if (response.message === "Login Successfull") {
         loggedIn = true;
         role = response.role;
         id = role.id;
