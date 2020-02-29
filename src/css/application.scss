@@ -1,13 +1,29 @@
 // @import "base/reset";
 @import "base/functions";
 @import "base/mixins";
+@import "base/table";
 @import "base/variables";
 @import "components/login";
+@import "components/client";
 
+* {
+  box-sizing: border-box;
+}
 
-
+html, body {
+  margin: 0 0 5% 0;
+}
 body {
   background-color: $primary-background;
+  border:solid black;
+  display:flex;
+  flex-grow: 1;
+  flex-direction: column;
+}
+
+header {
+  background-color: $highlight;
+  color:white;
 }
 
 /*hide role-specific div html*/

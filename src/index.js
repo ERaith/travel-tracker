@@ -21,7 +21,7 @@ let databaseController = new DatabaseController();
 
 function start() {
   
-  domUpdates.loginForm(databaseController);
+  // domUpdates.loginForm(databaseController);
 };
 
 start();

@@ -1,0 +1,26 @@
+@mixin border-radius($top-left-radius,$top-right-radius,$bottom-left-radius,$bottom-right-radius) {
+  -webkit-border-radius: $radius;
+     -moz-border-radius: $radius;
+      -ms-border-radius: $radius;
+          border-radius: $radius;
+          border-top-left-radius: $top-left-radius;
+          border-top-right-radius: $top-right-radius;
+          border-bottom-left-radius: $bottom-left-radius;
+          border-bottom-right-radius: $bottom-right-radius;
+}
+
+
+//Padding mixin
+@mixin padding($top, $right, $bottom, $left) {
+  padding-top: $top;
+  padding-right: $right;
+  padding-bottom: $bottom;
+  padding-left: $left;
+}
+//Margin mixin
+@mixin margin($top, $right, $bottom, $left) {
+  margin-top: $top;
+  margin-right: $right;
+  margin-bottom: $bottom;
+  margin-left: $left;
+}
