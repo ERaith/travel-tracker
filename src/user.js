@@ -1,0 +1,16 @@
+class User {
+  constructor(info) {
+    this.name = info.userName||"anon";
+    let role = info.role||"anonymous";
+    this.whoAmI = () => {
+      return role;
+    }
+
+  }
+  updateName(name) {
+    this.name = name;
+  }
+
+}
+
+export default User;

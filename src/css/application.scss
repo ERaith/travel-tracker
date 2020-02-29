@@ -2,8 +2,9 @@
 @import "base/functions";
 @import "base/mixins";
 @import "base/variables";
+@import "components/login";
 
-$primary-background: pink;
+
 
 body {
   background-color: $primary-background;
