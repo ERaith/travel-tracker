@@ -13,7 +13,8 @@ export function authenticate(userName, passwordAttempt) {
       return {
         message: "Login Successfull",
         role: curUser.role,
-        id: curUser.id
+        id: curUser.id,
+        name: curUser.name
       };
     }
   } else {

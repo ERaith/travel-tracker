@@ -13,27 +13,15 @@ import "./images/turing-logo.png";
 
 import User from './user';
 import DomUpdate from './domUpdate';
+import Admin from "./admin";
+import DatabaseController from "./databaseController";
 
 let domUpdates = new DomUpdate();
+let databaseController = new DatabaseController();
 
 function start() {
-  let currentUser = new User("John");
-  // let currentUser = new User("Morey Flanders");
-  domUpdates.loginForm(currentUser);
-  // currentUser.login("travel2020")
-
-  // Show div html based on role
-  if (currentUser.role == "anonymous") {
-    $("div.anonymous").show();
-  }
   
-  if (currentUser.role == "end_user") {
-    $("div.end_user").show();
-  }
-  
-  if (currentUser.role == "manager") {
-    $("div.manager").show();
-  }  
+  domUpdates.loginForm(databaseController);
 };
 
 start();
