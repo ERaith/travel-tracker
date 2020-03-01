@@ -10,18 +10,19 @@ import "./css/application.scss";
 // An example of how you tell webpack to use an image (also need to link to it in the index.html)
 import "./images/turing-logo.png";
 
-
-import User from './user';
 import DomUpdate from './domUpdate';
-import Admin from "./admin";
 import DatabaseController from "./databaseController";
 
 let domUpdates = new DomUpdate();
 let databaseController = new DatabaseController();
 
 function start() {
-  
-  // domUpdates.loginForm(databaseController);
+  domUpdates.loginForm(databaseController);
 };
+
+export function updateUser(authUser){
+  console.log(authUser)
+  domUpdates.loadView(authUser);
+}
 
 start();

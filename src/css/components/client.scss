@@ -12,6 +12,7 @@ section {
     display: flex;
     flex-grow: 1;
     @include margin($margin, $margin, $margin, $margin);
+    box-shadow: $box-shadow;
   }
 
   .client-trip-preview {
@@ -19,15 +20,19 @@ section {
     display: flex;
     flex-grow: 1;
     @include margin($margin, $margin, $margin, $margin);
+    box-shadow: $box-shadow;
   }
 
   .client-overview {
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
     flex-grow: 1;
     height: 100%;
-
-    background-color: $primary-background;
+    background-color: $secondary-background;
     @include margin($margin, $margin, $margin, $margin);
+    box-shadow: $box-shadow;
   }
 
   .client-trips {
@@ -35,8 +40,9 @@ section {
     flex-direction: column;
     flex-grow: 1;
     height: 100%;
-    background-color: $primary-background;
+    background-color:$secondary-background;
     @include margin($margin, $margin, $margin, $margin);
+    box-shadow: $box-shadow;
   }
 }
 
@@ -53,17 +59,18 @@ section {
 .table-wrap {
   padding-top: 30px;
   flex-grow: 1;
+ 
 }
 
 .table {
+
   margin: 0 0 40px 0;
   width: 100%;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 
   thead {
     font-weight: 900;
     color: #ffffff;
-    background: #ea6153;
+    background:$highlight;
   }
 
   tbody {
@@ -91,4 +98,13 @@ section {
 
 input#table-filter {
   width: 310px;
+}
+
+
+.chart-wrapper {
+  width:60%;
+}
+
+.button-container{
+  border:black solid;
 }

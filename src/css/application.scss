@@ -15,14 +15,13 @@ html, body {
 }
 body {
   background-color: $primary-background;
-  border:solid black;
   display:flex;
   flex-grow: 1;
   flex-direction: column;
 }
 
 header {
-  background-color: $highlight;
+  background-color: $primary-background;
   color:white;
 }
 
