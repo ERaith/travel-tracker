@@ -1,6 +1,8 @@
 import $ from "jquery";
-export function generateClientView(domUpdates) {
-  let loginHtml = `
+export function generateClientView(domUpdates, clientTripsData,totalTripCost) {
+  let tableHTML = generateTableHTML(clientTripsData);
+
+  let clientHTML = `
   <header>
     <h1>Welcome to Travel Tracker</h1>
   </header>
@@ -12,36 +14,7 @@ export function generateClientView(domUpdates) {
           <input class="form-control" id="table-filter" type="text" placeholder="Filter results...">
           <br>
           <div class="table-responsive">
-            <table data-toggle="table" id="table_data" class="table table-bordered table-hover">
-              <thead class="theme-dark">
-                <!-- <tr class = 'header'> -->
-                  <th id="Trip">Trip ID</th>
-                  <th id="Trip Name">Destination</th>
-                  <th id="Status">Status</th>
-                  <th id="Date">MM/DD/YYYY</th>
-                <!-- </tr> -->
-              </thead>
-              <tbody>
-                <tr>
-                  <th id="Trip">#123456</th>
-                  <th id="Trip Name">Florida</th>
-                  <th id="Status">Pending</th>
-                  <th id="Date">1/1/2015</th>
-                </tr>
-                <tr>
-                  <th id="Trip">#123456</th>
-                  <th id="Trip Name">Florida</th>
-                  <th id="Status">Pending</th>
-                  <th id="Date">1/1/2015</th>
-                </tr>
-                <tr>
-                  <th id="Trip">#123456</th>
-                  <th id="Trip Name">Florida</th>
-                  <th id="Status">Pending</th>
-                  <th id="Date">1/1/2015</th>
-                </tr>
-              </tbody>
-            </table>
+            ${tableHTML}
           </div>
         </div>
         </div>
@@ -52,14 +25,11 @@ export function generateClientView(domUpdates) {
           <button>Year to Date</button><button>Select Dates</button>
         </div>
         <div class = chart-wrapper>
-                <canvas class="chart" id="client-data"></canvas>
+          <canvas class="chart" id="client-data"></canvas>
         </div>
-
-
+        <h1>${totalTripCost}</h1>
       </article>
-
     </section>
-
     <section class="client-trip-preperation">
       <article class="client-trip-selection">
 
@@ -70,18 +40,66 @@ export function generateClientView(domUpdates) {
     </section>
   </main>
     `;
-  $(domUpdates.body).append(loginHtml);
-  generateTableHTML();
-  let data = [1, 2, 3, 4];
-  let labels = ["one", "two", "three", "four"];
+  $(domUpdates.body).append(clientHTML);
+
+  let cost = clientTripsData.map(trip => {
+    return trip.cost;
+  })
+
+  let labels = clientTripsData.map(trip => {
+    return `${trip.date}`;
+  })
   let label = "word";
   let chartType = "client-data";
   let color = "rgba(216, 17, 89, 1)";
-  displayLineChart(data, labels, label, chartType, color);
+  displayLineChart(cost, labels, label, chartType, color);
 }
 
-function generateTableHTML() {
-  console.log("Can access within same file");
+function generateTableHTML(clientTripsData) {
+  // []
+  // id: 55
+  // userID: 39
+  // destinationID: 49
+  // travelers: 3
+  // date: "2020/03/08"
+  // duration: 6
+  // status: "approved"
+  // suggestedActivities: []
+  let rowsHTML = clientTripsData
+    .reduce((rowHTML, trip) => {
+      rowHTML.push(`
+    <tr>
+      <th id="${trip.id}">#${trip.id}</th>
+      <th id="destination">${trip.destination}</th>
+      <th id="travelers">${trip.travelers}</th>
+      <th id="date">${trip.date}</th>
+      <th id="duration">${trip.duration}</th>
+      <th id="status">${trip.status}</th>
+      <th id="cost">${trip.cost}</th>
+    </tr>
+    `);
+      return rowHTML;
+    }, [])
+    .join();
+  let tableHTML = `
+  <table data-toggle="table" id="table_data" class="table table-bordered table-hover">
+  <thead class="theme-dark">
+    <!-- <tr class = 'header'> -->
+    <th id="tripID">Trip#</th>
+    <th id="destination">Desitination</th>
+    <th id="travelers">Travelers</th>
+    <th id="date">Date</th>
+    <th id="duration">Duration(days)</th>
+    <th id="status">Status</th>
+    <th id="cost">Cost</th>
+    <!-- </tr> -->
+  </thead>
+  <tbody>
+    ${rowsHTML}
+  </tbody>
+</table>
+`;
+  return tableHTML;
 }
 
 function displayLineChart(data, labels, label, chartType, color) {

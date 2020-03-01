@@ -10,7 +10,7 @@ import "./css/application.scss";
 // An example of how you tell webpack to use an image (also need to link to it in the index.html)
 import "./images/turing-logo.png";
 
-import DomUpdate from './domUpdate';
+import DomUpdate from "./domUpdate";
 import DatabaseController from "./databaseController";
 
 let domUpdates = new DomUpdate();
@@ -18,11 +18,33 @@ let databaseController = new DatabaseController();
 
 function start() {
   domUpdates.loginForm(databaseController);
-};
+}
 
-export function updateUser(authUser){
-  console.log(authUser)
-  domUpdates.loadView(authUser);
+export async function updateUser(authUser) {
+  // console.log(authUser);
+  switch (authUser.whoAmI()) {
+    case "admin":
+      //run admin interface here
+      domUpdates.adminView();
+
+      break;
+    case "client":
+      let clientTripsData = await databaseController.fetchUserTrips(authUser);
+      console.log(clientTripsData)
+      let totalTripCost = calcTotalTripCost(clientTripsData);
+      domUpdates.clientView(authUser,clientTripsData,totalTripCost);
+      break;
+  }
+}
+
+
+function calcTotalTripCost(clientTripsData){
+  let tripsSum = clientTripsData.reduce((sum,trip) => {
+    sum +=trip.cost;
+    return sum;
+  },0);
+
+  return tripsSum.toLocaleString('us-US', { style: 'currency', currency: 'USD' });
 }
 
 start();
