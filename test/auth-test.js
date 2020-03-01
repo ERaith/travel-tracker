@@ -8,13 +8,13 @@ describe("See if the auth tests are running", function() {
 
   describe("Should be able to find a user", function() {
     it("should return true", function() {
-      expect(authenticate('Morey Flanders','travel2020')).to.deep.equal(
+      expect(authenticate('Morey Flanders', 'travel2020')).to.deep.equal(
         {
           message: 'Login Successfull',
           role: 'client',
           id: 50
         }
-        );
+      );
     });
   });
 });

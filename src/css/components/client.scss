@@ -2,7 +2,6 @@ section {
   display: flex;
   flex-direction: row;
   flex-grow: 1;
-  border: black solid;
   justify-content: center;
   height: 30rem;
 
@@ -17,6 +16,7 @@ section {
     background-color: $secondary-background;
     display: flex;
     flex-grow: 1;
+ 
     @include margin($margin, $margin, $margin, $margin);
     box-shadow: $box-shadow;
   }
@@ -25,8 +25,12 @@ section {
     background-color: $secondary-background;
     display: flex;
     flex-grow: 1;
+    max-width: 415px;
     @include margin($margin, $margin, $margin, $margin);
     box-shadow: $box-shadow;
+    img{
+      width:400px;
+    }
   }
 
   .client-overview {

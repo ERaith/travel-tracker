@@ -1,8 +1,13 @@
 import $ from "jquery";
 import moment from "moment";
-import datepicker from 'js-datepicker'
+import datepicker from "js-datepicker";
 
-export function generateClientView(domUpdates, clientTripsData, totalTripCost,destinationData) {
+export function generateClientView(
+  domUpdates,
+  clientTripsData,
+  totalTripCost,
+  destinationData
+) {
   let tableHTML = generateTableHTML(clientTripsData);
   let dropdownHTML = generateDropDown(destinationData);
   let clientHTML = `
@@ -12,9 +17,6 @@ export function generateClientView(domUpdates, clientTripsData, totalTripCost,de
   <main>
     <section class="client-data">
       <article class="client-trips">
-      <div class="button-container">
-      <button>Year to Date</button><button>Select Dates</button>
-    </div>
       <div class = "total-cost">
         <h1>Total Cost: <span>${totalTripCost}</span></h1>
         </div>
@@ -37,7 +39,9 @@ export function generateClientView(domUpdates, clientTripsData, totalTripCost,de
     </section>
     <section class="client-trip-preperation">
       <article class="client-trip-selection">
+   
       <div class="destination-picker">
+   
       <form class="login-form">
 
         <div class = "destination"> 
@@ -59,22 +63,49 @@ export function generateClientView(domUpdates, clientTripsData, totalTripCost,de
         
         </div>
       </form>
-      <button>Submit</button>
+      <button id = "myTripButtonSubmit" disabled='true'>Submit</button>
+      Total Trip Cost
     </div>
 
       </article>
       <article class="client-trip-preview">
-
+    <img id = "preview-trip"src=  "https://images.unsplash.com/photo-1489171084589-9b5031ebcf9b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2089&q=80" alt = "trip preview">
       </article>
     </section>
   </main>
     `;
   $(domUpdates.body).append(clientHTML);
+  let today = new Date();
+  Date.prototype.addDays = function(days) {
+    var date = new Date(this.valueOf());
+    date.setDate(date.getDate() + days);
+    return date;
+  };
+  const start = datepicker(".start", { id: 1 });
+  start.setDate(today, true);
+  const end = datepicker(".end", { id: 1 });
+  end.setDate(today.addDays(12), true);
 
-  // const picker = datepicker('#date-picker')
-  const start = datepicker('.start', { id: 1 })
-const end = datepicker('.end', { id: 1 })
- 
+  $("form.login-form :input").on("change keyup paste", function() {
+    let disabled = true;
+    $("form.login-form :input").each(function() {
+      if (!$(this).hasClass("qs-overlay-year")) {
+        if ($(this).val() != "") {
+          disabled = false;
+        } 
+      }
+    });
+    $('#myTripButtonSubmit').prop('disabled',disabled)
+  });
+
+  $('#destination-dropdown').on("change", function() {
+    console.log('this')
+    let trip =destinationData.find(destination=>{
+      return destination.id==$(this).val();
+    })
+
+    $('#preview-trip').attr("src",trip.image)
+  });
 
   let cost = clientTripsData.map(trip => {
     return trip.cost;
@@ -137,18 +168,17 @@ function generateTableHTML(clientTripsData) {
   return tableHTML;
 }
 
-function generateDropDown(destinationData){
-let dropDownHTML = destinationData
-.reduce((optionHTML, destination) => {
-  optionHTML.push(`
-  <option value="${destination.id}">${destination.destination}</option>
-`);
-  return optionHTML;
-}, [])
-.join();
+function generateDropDown(destinationData) {
+  let dropDownHTML = destinationData
+    .reduce((optionHTML, destination) => {
+      optionHTML.push(`
+      <option value="${destination.id}">${destination.destination}</option>
+      `);
+      return optionHTML;
+    }, [])
+    .join();
 
-return dropDownHTML; 
-
+  return dropDownHTML;
 }
 
 function displayLineChart(data, labels, label, chartType, color) {
