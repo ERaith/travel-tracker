@@ -6,6 +6,12 @@ section {
   justify-content: center;
   height: 30rem;
 
+  .total-cost {
+    font-size: $font-size-large;
+    color: white;
+    display: flex;
+    justify-content: end;
+  }
 
   .client-trip-selection {
     background-color: $secondary-background;
@@ -40,8 +46,9 @@ section {
     flex-direction: column;
     flex-grow: 1;
     height: 100%;
-    background-color:$secondary-background;
+    background-color: $secondary-background;
     @include margin($margin, $margin, $margin, $margin);
+    @include padding($padding, $padding, $padding, $padding);
     box-shadow: $box-shadow;
   }
 }
@@ -59,7 +66,8 @@ section {
 .table-wrap {
   padding-top: 30px;
   flex-grow: 1;
- 
+  font-size: $font-size-medium;
+
 }
 
 .table {
@@ -70,7 +78,7 @@ section {
   thead {
     font-weight: 900;
     color: #ffffff;
-    background:$highlight;
+    background: $highlight;
   }
 
   tbody {
@@ -102,9 +110,35 @@ input#table-filter {
 
 
 .chart-wrapper {
-  width:60%;
+  width: 50rem;
 }
 
-.button-container{
-  border:black solid;
+.destination-picker {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  @include form();
+  color: white;
+
+  form {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .dates {
+    width: 30%;
+    @include padding($padding, $padding, $padding, $padding);
+  }
+
+  .destination {
+    width: 70%;
+    @include padding($padding, $padding, $padding, $padding);
+  }
+
+}
+
+.button-container {
+  button {
+    @include button();
+  }
 }

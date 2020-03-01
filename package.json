@@ -35,6 +35,7 @@
     "bcryptjs": "^2.4.3",
     "crypto": "^1.0.1",
     "jquery": "^3.4.1",
+    "js-datepicker": "^5.4.0",
     "moment": "^2.24.0"
   }
 }

@@ -32,7 +32,8 @@ export async function updateUser(authUser) {
       let clientTripsData = await databaseController.fetchUserTrips(authUser);
       console.log(clientTripsData)
       let totalTripCost = calcTotalTripCost(clientTripsData);
-      domUpdates.clientView(authUser,clientTripsData,totalTripCost);
+      let destinationData = await databaseController.fetchDestinations();
+      domUpdates.clientView(authUser,clientTripsData,totalTripCost,destinationData);
       break;
   }
 }
