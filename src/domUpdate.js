@@ -12,9 +12,8 @@ class DomUpdate {
     generateLogin(this, databaseController, this.body);
   }
 
-  clientView(authUser, clientTripsData, totalTripCost, destinationData,databaseController) {
+  clientView(clientTripsData, totalTripCost, destinationData,databaseController) {
     this.clearView();
-    console.log(authUser)
     generateClientView(this, clientTripsData, totalTripCost, destinationData,databaseController);
   }
 
@@ -25,6 +24,78 @@ class DomUpdate {
 
   clearView() {
     $(this.body).empty();
+  }
+  displayLineChart(clientTripsData) {
+
+    let data = clientTripsData.map(trip => {
+      return trip.cost;
+    });
+  
+    let labels = clientTripsData.map(trip => {
+      // return moment(`${trip.date}`).format('MM DD, YYYY');
+      return `${trip.date}`;
+    });
+    let label = "Trip Cost";
+    let chartType = "client-data";
+    let color = "rgba(216, 17, 89, 1)";
+  
+    var ctx = document.getElementById(chartType).getContext("2d");
+    var myLineChart = new Chart(ctx, {
+      type: "line",
+      data: {
+        labels,
+        datasets: [
+          {
+            label,
+            backgroundColor: color,
+            borderColor: "#AEBDCB",
+            borderWidth: 8,
+            data,
+            fill: true
+          }
+        ]
+      },
+      options: {
+        legend: {
+          display: false
+        },
+        responsive: true,
+        tooltips: {
+          mode: "index",
+          intersect: false
+        },
+        hover: {
+          mode: "nearest",
+          intersect: true
+        },
+        scales: {
+          xAxes: [
+            {
+              display: true,
+              ticks: {
+                fontSize: 20
+              },
+              scaleLabel: {
+                display: false,
+                labelString: "Date"
+              }
+            }
+          ],
+          yAxes: [
+            {
+              display: true,
+              ticks: {
+                fontSize: 20
+              },
+              scaleLabel: {
+                display: true,
+                labelString: label
+              }
+            }
+          ]
+        }
+      }
+    });
   }
 }
 

@@ -1,6 +1,7 @@
 import $ from "jquery";
 import moment from "moment";
 import datepicker from "js-datepicker";
+import { updateTripCost } from "../index";
 
 export function generateClientView(
   domUpdates,
@@ -9,7 +10,6 @@ export function generateClientView(
   destinationData,
   databaseController
 ) {
-
   let clientHTML = `
   <header>
     <h1>Welcome to Travel Tracker</h1>
@@ -48,17 +48,14 @@ export function generateClientView(
   </main>
     `;
   $(domUpdates.body).append(clientHTML);
-  createForm(destinationData)
-  let today = new Date();
-  Date.prototype.addDays = function(days) {
-    var date = new Date(this.valueOf());
-    date.setDate(date.getDate() + days);
-    return date;
-  };
-  const start = datepicker(".start", { id: 1 });
-  start.setDate(today, true);
-  const end = datepicker(".end", { id: 1 });
-  end.setDate(today.addDays(12), true);
+  generateFormHTML(destinationData);
+  initDatePicker();
+  eventListeners(destinationData, databaseController, domUpdates);
+  domUpdates.displayLineChart(clientTripsData);
+  generateTableHTML(clientTripsData);
+}
+
+function eventListeners(destinationData, databaseController, domUpdates) {
   let submitButton = $("#myTripButtonSubmit");
   $("form.login-form :input").on("change keyup paste", function() {
     let disabled = true;
@@ -70,40 +67,52 @@ export function generateClientView(
       }
     });
     submitButton.prop("disabled", disabled);
-    updateCost(destinationData,databaseController)
+    updateTravelCost(destinationData, databaseController);
   });
   submitButton.on("click", function() {
-    submit(databaseController,destinationData);
+    submit(databaseController, domUpdates);
   });
 
   $("#destination-dropdown").on("change", function() {
-    console.log("this");
     let trip = destinationData.find(destination => {
       return destination.id == $(this).val();
     });
 
     $("#preview-trip").attr("src", trip.image);
   });
-
-
-
-  displayLineChart(clientTripsData);
-  generateTableHTML(clientTripsData);
 }
 
-function updateCost(destinationData,databaseController) {
+function initDatePicker() {
+  let today = new Date();
+  Date.prototype.addDays = function(days) {
+    var date = new Date(this.valueOf());
+    date.setDate(date.getDate() + days);
+    return date;
+  };
+  const start = datepicker(".start", { id: 1 });
+  start.setDate(today, true);
+  const end = datepicker(".end", { id: 1 });
+  end.setDate(today.addDays(12), true);
+}
+
+function updateTravelCost(destinationData) {
   var travelers = $("#travelers").val();
   var startDate = $(".start").val();
   var endDate = $(".end").val();
   var destination = $("#destination-dropdown").val();
-  let cost = databaseController.costOfTrip(destinationData,travelers,startDate,endDate,destination);
-  console.log($('.trip-cost'))
-  $('.trip-cost').text(`$${cost}`)
+  let cost = updateTripCost(
+    destinationData,
+    travelers,
+    startDate,
+    endDate,
+    destination
+  );
+  $(".trip-cost").text(`$${cost}`);
 }
 
-function createForm(destinationData) {
+function generateFormHTML(destinationData) {
   let dropdownHTML = generateDropDown(destinationData);
-  let formHTML =`
+  let formHTML = `
   <div class="destination-picker">
   <form class="login-form">
     <div class = "destination"> 
@@ -133,7 +142,7 @@ function createForm(destinationData) {
   $(".client-trip-selection").append(formHTML);
 }
 
-async function submit(databaseController,) {
+async function submit(databaseController, domUpdates) {
   var travelers = $("#travelers").val();
   var startDate = $(".start").val();
   var endDate = $(".end").val();
@@ -146,8 +155,8 @@ async function submit(databaseController,) {
     destination
   );
   generateTableHTML(updatedClientTripsData);
-  $('#travelers').val('')
-  displayLineChart(updatedClientTripsData);
+  $("#travelers").val("");
+  domUpdates.displayLineChart(updatedClientTripsData);
 }
 
 function generateTableHTML(clientTripsData) {
@@ -199,77 +208,4 @@ function generateDropDown(destinationData) {
     .join();
 
   return dropDownHTML;
-}
-
-function displayLineChart(clientTripsData) {
-
-  let data = clientTripsData.map(trip => {
-    return trip.cost;
-  });
-
-  let labels = clientTripsData.map(trip => {
-    // return moment(`${trip.date}`).format('MM DD, YYYY');
-    return `${trip.date}`;
-  });
-  let label = "Trip Cost";
-  let chartType = "client-data";
-  let color = "rgba(216, 17, 89, 1)";
-
-  var ctx = document.getElementById(chartType).getContext("2d");
-  var myLineChart = new Chart(ctx, {
-    type: "line",
-    data: {
-      labels,
-      datasets: [
-        {
-          label,
-          backgroundColor: color,
-          borderColor: "#AEBDCB",
-          borderWidth: 8,
-          data,
-          fill: true
-        }
-      ]
-    },
-    options: {
-      legend: {
-        display: false
-      },
-      responsive: true,
-      tooltips: {
-        mode: "index",
-        intersect: false
-      },
-      hover: {
-        mode: "nearest",
-        intersect: true
-      },
-      scales: {
-        xAxes: [
-          {
-            display: true,
-            ticks: {
-              fontSize: 20
-            },
-            scaleLabel: {
-              display: false,
-              labelString: "Date"
-            }
-          }
-        ],
-        yAxes: [
-          {
-            display: true,
-            ticks: {
-              fontSize: 20
-            },
-            scaleLabel: {
-              display: true,
-              labelString: label
-            }
-          }
-        ]
-      }
-    }
-  });
 }

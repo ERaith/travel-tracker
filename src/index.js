@@ -16,6 +16,8 @@ import DatabaseController from "./databaseController";
 let domUpdates = new DomUpdate();
 let databaseController = new DatabaseController();
 
+let user;
+
 function start() {
   domUpdates.loginForm(databaseController);
 }
@@ -29,23 +31,47 @@ export async function updateUser(authUser) {
 
       break;
     case "client":
+      user = authUser;
       let clientTripsData = await databaseController.fetchUserTrips(authUser);
-      console.log(clientTripsData)
       let totalTripCost = calcTotalTripCost(clientTripsData);
       let destinationData = await databaseController.fetchDestinations();
-      domUpdates.clientView(authUser,clientTripsData,totalTripCost,destinationData,databaseController);
+      domUpdates.clientView(
+        clientTripsData,
+        totalTripCost,
+        destinationData,
+        databaseController
+      );
       break;
   }
 }
 
-
-function calcTotalTripCost(clientTripsData){
-  let tripsSum = clientTripsData.reduce((sum,trip) => {
-    sum +=trip.cost;
+function calcTotalTripCost(clientTripsData) {
+  let tripsSum = clientTripsData.reduce((sum, trip) => {
+    sum += trip.cost;
     return sum;
-  },0);
+  }, 0);
 
-  return tripsSum.toLocaleString('us-US', { style: 'currency', currency: 'USD' });
+  return tripsSum.toLocaleString("us-US", {
+    style: "currency",
+    currency: "USD"
+  });
+}
+
+export function updateTripCost(
+  destinationData,
+  travelers,
+  startDate,
+  endDate,
+  destination
+) {
+  let cost = user.tripCost(
+    destinationData,
+    travelers,
+    startDate,
+    endDate,
+    destination
+  );
+  return cost;
 }
 
 start();
