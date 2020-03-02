@@ -129,7 +129,10 @@ function createForm(destinationData) {
   </form>
   <button id = "myTripButtonSubmit" disabled='true'>Submit</button>
   Total Trip Cost
-  `
+  `;
+
+
+  
   $(".client-trip-selection").empty();
   $(".client-trip-selection").append(formHTML);
 
@@ -150,7 +153,12 @@ async function submit(databaseController,destinationData) {
     destination
   );
   generateTableHTML(updatedClientTripsData);
-  createForm(destinationData);
+  $('#travelers').val('')
+
+}
+
+function updateForm() {
+  
 }
 
 function generateTableHTML(clientTripsData) {
@@ -159,7 +167,7 @@ function generateTableHTML(clientTripsData) {
     <tr>
       <th id="${trip.id}">#${trip.id}</th>
       <th id="destination">${trip.destination}</th>
-      <th id="travelers">${trip.travelers}</th>
+      <th id="travelers-col">${trip.travelers}</th>
       <th id="date">${trip.date}</th>
       <th id="duration">${trip.duration}</th>
       <th id="status">${trip.status}</th>
@@ -175,7 +183,7 @@ function generateTableHTML(clientTripsData) {
     <tr class = 'header'>
     <th id="tripID">Trip#</th>
     <th id="destination">Desitination</th>
-    <th id="travelers">Travelers</th>
+    <th id="travelers-head">Travelers</th>
     <th id="date">Date</th>
     <th id="duration">Duration(days)</th>
     <th id="status">Status</th>
