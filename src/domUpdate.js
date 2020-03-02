@@ -12,9 +12,10 @@ class DomUpdate {
     generateLogin(this, databaseController, this.body);
   }
 
-  clientView(authUser, clientTripsData, totalTripCost, destinationData) {
+  clientView(authUser, clientTripsData, totalTripCost, destinationData,databaseController) {
     this.clearView();
-    generateClientView(this, clientTripsData, totalTripCost, destinationData);
+    console.log(authUser)
+    generateClientView(this, clientTripsData, totalTripCost, destinationData,databaseController);
   }
 
   adminView() {

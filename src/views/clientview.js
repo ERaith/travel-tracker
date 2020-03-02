@@ -1,15 +1,15 @@
 import $ from "jquery";
-import moment from "moment";
+import moment, { calendarFormat } from "moment";
 import datepicker from "js-datepicker";
 
 export function generateClientView(
   domUpdates,
   clientTripsData,
   totalTripCost,
-  destinationData
+  destinationData,
+  databaseController
 ) {
-  let tableHTML = generateTableHTML(clientTripsData);
-  let dropdownHTML = generateDropDown(destinationData);
+
   let clientHTML = `
   <header>
     <h1>Welcome to Travel Tracker</h1>
@@ -23,7 +23,6 @@ export function generateClientView(
         <div class="table-wrap">
           <br>
           <div class="table-responsive">
-            ${tableHTML}
           </div>
         </div>
         </div>
@@ -38,34 +37,8 @@ export function generateClientView(
       </article>
     </section>
     <section class="client-trip-preperation">
-      <article class="client-trip-selection">
-   
-      <div class="destination-picker">
-   
-      <form class="login-form">
-
-        <div class = "destination"> 
-        <label for="travelers">Number of travelers (1-10):</label>
-        <input type="number" id="travelers" name="travelers" min="10" max="100">
-
-        <label for="destination-dropdown">Choose a Destination:</label>
-        <select id="destination-dropdown" name="destinations">
-        ${dropdownHTML}
-
-        </select>
-        </div>
-        <div class = "dates">
-        <label for="from-date">Date of Departure</label>
-        <input id ="1" class ="start" type="text">
-
-        <label for="from-date">Date of Departure</label>
-        <input id ="1" class ="end" type="text">
-        
-        </div>
-      </form>
-      <button id = "myTripButtonSubmit" disabled='true'>Submit</button>
-      Total Trip Cost
-    </div>
+    <article class="client-trip-selection">
+    
 
       </article>
       <article class="client-trip-preview">
@@ -75,6 +48,7 @@ export function generateClientView(
   </main>
     `;
   $(domUpdates.body).append(clientHTML);
+  createForm(destinationData)
   let today = new Date();
   Date.prototype.addDays = function(days) {
     var date = new Date(this.valueOf());
@@ -85,26 +59,29 @@ export function generateClientView(
   start.setDate(today, true);
   const end = datepicker(".end", { id: 1 });
   end.setDate(today.addDays(12), true);
-
+  let submitButton = $("#myTripButtonSubmit");
   $("form.login-form :input").on("change keyup paste", function() {
     let disabled = true;
     $("form.login-form :input").each(function() {
       if (!$(this).hasClass("qs-overlay-year")) {
         if ($(this).val() != "") {
           disabled = false;
-        } 
+        }
       }
     });
-    $('#myTripButtonSubmit').prop('disabled',disabled)
+    submitButton.prop("disabled", disabled);
+  });
+  submitButton.on("click", function() {
+    submit(databaseController,destinationData);
   });
 
-  $('#destination-dropdown').on("change", function() {
-    console.log('this')
-    let trip =destinationData.find(destination=>{
-      return destination.id==$(this).val();
-    })
+  $("#destination-dropdown").on("change", function() {
+    console.log("this");
+    let trip = destinationData.find(destination => {
+      return destination.id == $(this).val();
+    });
 
-    $('#preview-trip').attr("src",trip.image)
+    $("#preview-trip").attr("src", trip.image);
   });
 
   let cost = clientTripsData.map(trip => {
@@ -118,22 +95,67 @@ export function generateClientView(
   let label = "Trip Cost";
   let chartType = "client-data";
   let color = "rgba(216, 17, 89, 1)";
+
   displayLineChart(cost, labels, label, chartType, color);
+  generateTableHTML(clientTripsData);
+}
+function createForm(destinationData) {
+  let dropdownHTML = generateDropDown(destinationData);
+  let formHTML =`
+ 
+   
+  <div class="destination-picker">
+
+  <form class="login-form">
+
+    <div class = "destination"> 
+    <label for="travelers">Number of travelers (1-10):</label>
+    <input type="number" id="travelers" name="travelers" min="10" max="100">
+
+    <label for="destination-dropdown">Choose a Destination:</label>
+    <select id="destination-dropdown" name="destinations">
+    ${dropdownHTML}
+
+    </select>
+    </div>
+    <div class = "dates">
+    <label for="from-date">Date of Departure</label>
+    <input  class ="start" type="text">
+
+    <label for="from-date">Date of Departure</label>
+    <input class ="end" type="text">
+    
+    </div>
+  </form>
+  <button id = "myTripButtonSubmit" disabled='true'>Submit</button>
+  Total Trip Cost
+  `
+  $(".client-trip-selection").empty();
+  $(".client-trip-selection").append(formHTML);
+
+}
+
+
+async function submit(databaseController,destinationData) {
+  var travelers = $("#travelers").val();
+  var startDate = $(".start").val();
+  var endDate = $(".start").val();
+  var destination = $("#destination-dropdown").val();
+  name = "Michal Tudhope";
+  let updatedClientTripsData = await databaseController.bookTrip(
+    name,
+    travelers,
+    startDate,
+    endDate,
+    destination
+  );
+  generateTableHTML(updatedClientTripsData);
+  createForm(destinationData);
 }
 
 function generateTableHTML(clientTripsData) {
-  // []
-  // id: 55
-  // userID: 39
-  // destinationID: 49
-  // travelers: 3
-  // date: "2020/03/08"
-  // duration: 6
-  // status: "approved"
-  // suggestedActivities: []
-  let rowsHTML = clientTripsData
-    .reduce((rowHTML, trip) => {
-      rowHTML.push(`
+  let rowsHTML = clientTripsData.reduce((rowHTML, trip) => {
+    let row = `
     <tr>
       <th id="${trip.id}">#${trip.id}</th>
       <th id="destination">${trip.destination}</th>
@@ -143,10 +165,10 @@ function generateTableHTML(clientTripsData) {
       <th id="status">${trip.status}</th>
       <th id="cost">${trip.cost}</th>
     </tr>
-    `);
-      return rowHTML;
-    }, [])
-    .join();
+    `;
+    rowHTML = rowHTML.concat(" ", row);
+    return rowHTML;
+  }, "");
   let tableHTML = `
   <table data-toggle="table" id="table_data" class="table table-bordered table-hover">
   <thead class="theme-dark">
@@ -165,7 +187,8 @@ function generateTableHTML(clientTripsData) {
   </tbody>
 </table>
 `;
-  return tableHTML;
+  $(".table-responsive").empty();
+  $(".table-responsive").append(tableHTML);
 }
 
 function generateDropDown(destinationData) {

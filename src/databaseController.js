@@ -7,16 +7,18 @@ class DatabaseController {
   constructor() {
     let hash = () => {};
     this.token = "token placeholder";
+    this.authUser ='';
   }
   login(userName, passwordEntered) {
     let response = authenticate(userName, passwordEntered);
     if (response.message === "Login Successfull") {
       if (response.role === "client") {
-        let authUser = new Traveler(response);
-        updateUser(authUser);
+        this.authUser = new Traveler(response);
+        updateUser(this.authUser);
+
       } else {
-        let authUser = new Admin(response);
-        updateUser(authUser);
+        this.authUser = new Admin(response);
+        updateUser(this.authUser);
       }
     } else {
       return response.message;
@@ -108,6 +110,41 @@ class DatabaseController {
     let destinations = await response.json();
     return destinations.destinations;
   }
+
+  async bookTrip(name,travelers,startDate,endDate,destination){
+    let id = Math.floor(1000 + Math.random() * 9000);
+    let data = JSON.stringify({
+
+      "userID": 39,
+      "id":id,
+      "destinationID": 1,
+      "travelers": 1,
+      "date": "2019/09/16",
+      "duration": 8,
+      "status": "pending",
+      "suggestedActivities": []
+   });
+   //      "tripID":456789123,
+
+   let response = await fetch(
+    "https://fe-apps.herokuapp.com/api/v1/travel-tracker/1911/trips/trips",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: data
+    }
+   );
+   let retrievedData = await response.json();
+   let updatedUserTrips = await this.fetchUserTrips(this.authUser);
+   return updatedUserTrips;
+    
+  }
+
+
+
+
 }
 
 export default DatabaseController;
