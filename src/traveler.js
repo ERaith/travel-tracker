@@ -8,10 +8,6 @@ class Traveler extends User {
     this.id = info.id;
     this.databaseController = new DatabaseController();
   }
-  async findTrips() {
-    let trips = await this.databaseController.fetchTrips(this.id);
-    return trips;
-  }
 
   tripCost(destinationData, travelers, startDate, endDate, destination) {
     startDate = moment(startDate);
@@ -39,6 +35,32 @@ class Traveler extends User {
       currency: "USD"
     });
   }
+  generateRandomNumber() {
+      return Math.floor(1000 + Math.random() * 9000);
+  }
+
+  createTrip(travelers, startDate, endDate, destination){
+    startDate = moment(startDate);
+    endDate = moment(endDate);
+    let duration = endDate.diff(startDate, 'days');
+
+    let id = this.generateRandomNumber()
+
+    let tripData = JSON.stringify({
+
+      "userID": this.id,
+      "id": id,
+      "destinationID": parseInt(destination),
+      "travelers": parseInt(travelers),
+      "date": startDate.format('YYYY/MM/DD'),
+      "duration": duration,
+      "status": "pending",
+      "suggestedActivities": []
+    });
+    //      "tripID":456789123,
+    return tripData;
+  }
+
 }
 
 export default Traveler;

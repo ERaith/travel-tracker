@@ -153,13 +153,15 @@ async function submit(databaseController, domUpdates) {
   var startDate = $(".start").val();
   var endDate = $(".end").val();
   var destination = $("#destination-dropdown").val();
-
-  let updatedClientTripsData = await databaseController.bookTrip(
+ 
+  let tripData = databaseController.authUser.createTrip(
     travelers,
     startDate,
     endDate,
     destination
   );
+  console.log(tripData)
+  let updatedClientTripsData = await databaseController.bookTrip(tripData)
   generateTableHTML(updatedClientTripsData);
   $("#travelers").val("");
   domUpdates.displayLineChart(updatedClientTripsData);
