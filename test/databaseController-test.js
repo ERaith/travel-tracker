@@ -14,12 +14,7 @@ import Traveler from "../src/traveler";
 import Admin from "../src/admin";
 chai.use(spies);
 
-
-
-
-
 describe("Database local tests", function () {
-
 
   it("should return true", function () {
     expect(true).to.equal(true);
@@ -103,7 +98,14 @@ describe("Database fetch tests", function () {
     })
   });
 
-  
+  it('should fetch all destinations from the server', function () {
+    databaseController.fetchUserTrips(traveler);
+
+    expect(global.fetch).to.be.called(1);
+  });
+
+
+
 
 
 });

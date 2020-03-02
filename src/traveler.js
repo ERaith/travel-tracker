@@ -8,10 +8,6 @@ class Traveler extends User {
     this.id = info.id;
     this.databaseController = new DatabaseController();
   }
-  async findTrips() {
-    let trips = await this.databaseController.fetchTrips(this.id);
-    return trips;
-  }
 
   tripCost(destinationData, travelers, startDate, endDate, destination) {
     startDate = moment(startDate);
@@ -62,11 +58,8 @@ class Traveler extends User {
       "suggestedActivities": []
     });
     //      "tripID":456789123,
-    console.log(tripData)
     return tripData;
   }
-
-
 
 }
 
