@@ -1,8 +1,9 @@
 import { authenticate } from "./auth.js";
 import Admin from "./admin.js";
 import Traveler from "./traveler.js";
-import { updateUser } from "./index";
+// import { updateUser }from "./domUpdate";  
 import moment from "moment";
+import { BASE_URL, TRAVEL_ENDPOINT,TRIP_ENDPOINT,DESTINATIONS_ENDPOINT,UPDATE_TRIP_ENDPOINT } from './constants';
 
 class DatabaseController {
   constructor() {
@@ -10,16 +11,17 @@ class DatabaseController {
     this.token = "token placeholder";
     this.authUser ='';
   }
-  login(userName, passwordEntered) {
+  
+  login(userName, passwordEntered,domUpdates) {
     let response = authenticate(userName, passwordEntered);
     if (response.message === "Login Successfull") {
       if (response.role === "client") {
         this.authUser = new Traveler(response);
-        updateUser(this.authUser);
+        domUpdates.updateUser(this.authUser,this);
 
       } else {
         this.authUser = new Admin(response);
-        updateUser(this.authUser);
+        domUpdates.updateUser(this.authUser,this);
       }
     } else {
       return response.message;
@@ -27,7 +29,7 @@ class DatabaseController {
   }
   async fetchSingleUserInfo(authUser) {
     let response = await fetch(
-      `https://fe-apps.herokuapp.com/api/v1/travel-tracker/1911/travelers/travelers/${authUser.id}`
+      BASE_URL+ TRAVEL_ENDPOINT+ `${authUser.id}`
     );
     let userInfo = await response.json();
 
@@ -35,7 +37,7 @@ class DatabaseController {
   }
   async fetchAllTrips() {
     let response = await fetch(
-      `https://fe-apps.herokuapp.com/api/v1/travel-tracker/1911/trips/trips`
+      BASE_URL+TRIP_ENDPOINT
     );
     let allTrips = await response.json();
     return allTrips;
@@ -138,8 +140,6 @@ class DatabaseController {
    return updatedUserTrips;
     
   }
-
-
 
 }
 

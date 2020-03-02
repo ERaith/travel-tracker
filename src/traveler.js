@@ -16,20 +16,28 @@ class Traveler extends User {
   tripCost(destinationData, travelers, startDate, endDate, destination) {
     startDate = moment(startDate);
     endDate = moment(endDate);
-    console.log("here");
     let duration = endDate.diff(startDate, "days");
-    console.log(destination);
     let trip = destinationData.find(trip => {
-      console.log(trip.id);
       return trip.id == destination;
     });
-    console.log(trip);
     let cost =
       (trip.estimatedLodgingCostPerDay * duration +
         trip.estimatedFlightCostPerPerson * travelers) *
       1.1;
     cost = Math.round(cost);
     return cost;
+  }
+
+  calcTotalTripCost(clientTripsData) {
+    let tripsSum = clientTripsData.reduce((sum, trip) => {
+      sum += trip.cost;
+      return sum;
+    }, 0);
+  
+    return tripsSum.toLocaleString("us-US", {
+      style: "currency",
+      currency: "USD"
+    });
   }
 }
 

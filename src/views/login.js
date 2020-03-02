@@ -22,7 +22,7 @@ export function generateLogin(domUpdates,databaseController,body) {
     // Load Default user
     name = 'Selene Kleyn';
     password = 'travel2020'
-    databaseController.login(name,password);
+    databaseController.login(name,password,domUpdates);
     // let authUser = databaseController.login(name,password);
     // if(!authUser.message){
     //   domUpdates.loadView(authUser);

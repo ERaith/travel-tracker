@@ -1,7 +1,9 @@
 import $ from "jquery";
 import moment from "moment";
 import datepicker from "js-datepicker";
-import { updateTripCost } from "../index";
+import {
+  updateTripCost
+} from "../index";
 
 export function generateClientView(
   domUpdates,
@@ -57,9 +59,9 @@ export function generateClientView(
 
 function eventListeners(destinationData, databaseController, domUpdates) {
   let submitButton = $("#myTripButtonSubmit");
-  $("form.login-form :input").on("change keyup paste", function() {
+  $("form.login-form :input").on("change keyup paste", function () {
     let disabled = true;
-    $("form.login-form :input").each(function() {
+    $("form.login-form :input").each(function () {
       if (!$(this).hasClass("qs-overlay-year")) {
         if ($(this).val() != "") {
           disabled = false;
@@ -69,11 +71,11 @@ function eventListeners(destinationData, databaseController, domUpdates) {
     submitButton.prop("disabled", disabled);
     updateTravelCost(destinationData, databaseController);
   });
-  submitButton.on("click", function() {
+  submitButton.on("click", function () {
     submit(databaseController, domUpdates);
   });
 
-  $("#destination-dropdown").on("change", function() {
+  $("#destination-dropdown").on("change", function () {
     let trip = destinationData.find(destination => {
       return destination.id == $(this).val();
     });
@@ -84,14 +86,18 @@ function eventListeners(destinationData, databaseController, domUpdates) {
 
 function initDatePicker() {
   let today = new Date();
-  Date.prototype.addDays = function(days) {
+  Date.prototype.addDays = function (days) {
     var date = new Date(this.valueOf());
     date.setDate(date.getDate() + days);
     return date;
   };
-  const start = datepicker(".start", { id: 1 });
+  const start = datepicker(".start", {
+    id: 1
+  });
   start.setDate(today, true);
-  const end = datepicker(".end", { id: 1 });
+  const end = datepicker(".end", {
+    id: 1
+  });
   end.setDate(today.addDays(12), true);
 }
 

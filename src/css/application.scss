@@ -5,6 +5,7 @@
 @import "base/variables";
 @import "components/login";
 @import "components/client";
+
 @import '~js-datepicker/src/datepicker';
 
 * {
@@ -27,10 +28,6 @@ header {
   color:white;
 }
 
-/*hide role-specific div html*/
-div.anonymous, div.end_user, div.manager {
-  display: none;
-  }
 
 span{
   color:  rgba(216, 17, 89, 1);

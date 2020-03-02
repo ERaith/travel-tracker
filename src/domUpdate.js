@@ -97,6 +97,25 @@ class DomUpdate {
       }
     });
   }
+  async updateUser(authUser,databaseController) {
+    switch (authUser.whoAmI()) {
+      case "admin":
+        //run admin interface here
+        this.adminView();
+        break;
+      case "client":
+        let clientTripsData = await databaseController.fetchUserTrips(authUser);
+        let totalTripCost = authUser.calcTotalTripCost(clientTripsData);
+        let destinationData = await databaseController.fetchDestinations();
+        this.clientView(
+          clientTripsData,
+          totalTripCost,
+          destinationData,
+          databaseController
+        );
+        break;
+    }
+  }
 }
 
 export default DomUpdate;
