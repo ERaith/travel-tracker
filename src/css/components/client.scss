@@ -1,0 +1,149 @@
+section {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+  justify-content: center;
+  height: 30rem;
+
+  .total-cost {
+    font-size: $font-size-large;
+    color: white;
+    display: flex;
+    justify-content: end;
+  }
+
+  .client-trip-selection {
+    background-color: $secondary-background;
+    display: flex;
+    flex-grow: 1;
+ 
+    @include margin($margin, $margin, $margin, $margin);
+    box-shadow: $box-shadow;
+  }
+
+  .client-trip-preview {
+    background-color: $secondary-background;
+    display: flex;
+    flex-grow: 1;
+    max-width: 415px;
+    @include margin($margin, $margin, $margin, $margin);
+    box-shadow: $box-shadow;
+    img{
+      width:400px;
+    }
+  }
+
+  .client-overview {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    flex-grow: 1;
+    height: 100%;
+    background-color: $secondary-background;
+    @include margin($margin, $margin, $margin, $margin);
+    box-shadow: $box-shadow;
+  }
+
+  .client-trips {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    height: 100%;
+    background-color: $secondary-background;
+    @include margin($margin, $margin, $margin, $margin);
+    @include padding($padding, $padding, $padding, $padding);
+    box-shadow: $box-shadow;
+  }
+}
+
+.client-data {
+  @include border-radius($radius, $radius, 0, 0);
+  overflow: hidden;
+}
+
+.client-trip-preperation {
+  @include border-radius(0, 0, $radius, $radius);
+
+}
+
+.table-wrap {
+  padding-top: 30px;
+  flex-grow: 1;
+  font-size: $font-size-medium;
+  overflow:scroll;
+
+}
+
+.table {
+
+  margin: 0 0 40px 0;
+  width: 100%;
+
+  thead {
+    font-weight: 900;
+    color: #ffffff;
+    background: $highlight;
+  }
+
+  tbody {
+    tr {
+      height: 2rem;
+      background: #f6f6f6;
+
+      &:nth-of-type(odd) {
+        background: #e9e9e9;
+      }
+
+      &:hover {
+        background: $highlight;
+      }
+    }
+  }
+
+
+  th,
+  td {
+    vertical-align: middle;
+  }
+
+}
+
+input#table-filter {
+  width: 310px;
+}
+
+
+.chart-wrapper {
+  width: 50rem;
+}
+
+.destination-picker {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  @include form();
+  color: white;
+
+  form {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .dates {
+    width: 30%;
+    @include padding($padding, $padding, $padding, $padding);
+  }
+
+  .destination {
+    width: 70%;
+    @include padding($padding, $padding, $padding, $padding);
+  }
+
+}
+
+.button-container {
+  button {
+    @include button();
+  }
+}

@@ -8,14 +8,11 @@ describe("See if the User tests are running", function() {
 
   describe("User Story:", function() {
     it("should be initialized", function() {
-      let newUser = new User("Jeff");
+      let info = {name:'Jeff',role:'client'}
+      let newUser = new User(info);
       expect(newUser.name).to.equal("Jeff");
     });
 
-    it("should be able to login", function() {
-      let newUser = new User("Guthry Tute");
-      
-      expect(newUser.login('travel2020')).to.equal("Login Successfull");
-    });
+   
   });
 });

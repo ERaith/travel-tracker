@@ -15,18 +15,22 @@ export function generateLogin(domUpdates,databaseController,body) {
   $(body).append(loginHtml);
 
   let loginButton = $("button");
-
   loginButton.click(function(event) {
     event.preventDefault();
     var name = $("#userName").val();
     var password = $("#password").val();
     // Load Default user
-    name = 'Michal Tudhope';
+    name = 'Selene Kleyn';
     password = 'travel2020'
-    let authUser = databaseController.login(name,password);
-    if(!authUser.message){
-      domUpdates.loadView(authUser);
-    }
+    databaseController.login(name,password,domUpdates);
+    // let authUser = databaseController.login(name,password);
+    // if(!authUser.message){
+    //   domUpdates.loadView(authUser);
+    //   return authUser;
+    // }
     return false;
   });
+
+
+  return loginButton;
 }
