@@ -9,8 +9,6 @@ class Traveler extends User {
   }
   async findTrips() {
     let trips = await this.databaseController.fetchTrips(this.id);
-
-
     return trips;
   }
   

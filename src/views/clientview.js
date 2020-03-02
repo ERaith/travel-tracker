@@ -1,5 +1,5 @@
 import $ from "jquery";
-import moment, { calendarFormat } from "moment";
+import moment from "moment";
 import datepicker from "js-datepicker";
 
 export function generateClientView(
@@ -70,6 +70,7 @@ export function generateClientView(
       }
     });
     submitButton.prop("disabled", disabled);
+    updateCost(destinationData,databaseController)
   });
   submitButton.on("click", function() {
     submit(databaseController,destinationData);
@@ -84,38 +85,35 @@ export function generateClientView(
     $("#preview-trip").attr("src", trip.image);
   });
 
-  let cost = clientTripsData.map(trip => {
-    return trip.cost;
-  });
 
-  let labels = clientTripsData.map(trip => {
-    // return moment(`${trip.date}`).format('MM DD, YYYY');
-    return `${trip.date}`;
-  });
-  let label = "Trip Cost";
-  let chartType = "client-data";
-  let color = "rgba(216, 17, 89, 1)";
 
-  displayLineChart(cost, labels, label, chartType, color);
+  displayLineChart(clientTripsData);
   generateTableHTML(clientTripsData);
 }
+
+function updateCost(destinationData,databaseController) {
+  var travelers = $("#travelers").val();
+  var startDate = $(".start").val();
+  var endDate = $(".end").val();
+  var destination = $("#destination-dropdown").val();
+  let cost = databaseController.costOfTrip(destinationData,travelers,startDate,endDate,destination);
+  console.log($('.trip-cost'))
+  $('.trip-cost').text(`$${cost}`)
+}
+
 function createForm(destinationData) {
   let dropdownHTML = generateDropDown(destinationData);
   let formHTML =`
- 
-   
   <div class="destination-picker">
-
   <form class="login-form">
-
     <div class = "destination"> 
+
     <label for="travelers">Number of travelers (1-10):</label>
     <input type="number" id="travelers" name="travelers" min="10" max="100">
 
     <label for="destination-dropdown">Choose a Destination:</label>
     <select id="destination-dropdown" name="destinations">
     ${dropdownHTML}
-
     </select>
     </div>
     <div class = "dates">
@@ -128,25 +126,20 @@ function createForm(destinationData) {
     </div>
   </form>
   <button id = "myTripButtonSubmit" disabled='true'>Submit</button>
-  Total Trip Cost
+  <span class ="trip-cost"></span>
   `;
 
-
-  
   $(".client-trip-selection").empty();
   $(".client-trip-selection").append(formHTML);
-
 }
 
-
-async function submit(databaseController,destinationData) {
+async function submit(databaseController,) {
   var travelers = $("#travelers").val();
   var startDate = $(".start").val();
-  var endDate = $(".start").val();
+  var endDate = $(".end").val();
   var destination = $("#destination-dropdown").val();
-  name = "Michal Tudhope";
+
   let updatedClientTripsData = await databaseController.bookTrip(
-    name,
     travelers,
     startDate,
     endDate,
@@ -154,11 +147,7 @@ async function submit(databaseController,destinationData) {
   );
   generateTableHTML(updatedClientTripsData);
   $('#travelers').val('')
-
-}
-
-function updateForm() {
-  
+  displayLineChart(updatedClientTripsData);
 }
 
 function generateTableHTML(clientTripsData) {
@@ -212,7 +201,20 @@ function generateDropDown(destinationData) {
   return dropDownHTML;
 }
 
-function displayLineChart(data, labels, label, chartType, color) {
+function displayLineChart(clientTripsData) {
+
+  let data = clientTripsData.map(trip => {
+    return trip.cost;
+  });
+
+  let labels = clientTripsData.map(trip => {
+    // return moment(`${trip.date}`).format('MM DD, YYYY');
+    return `${trip.date}`;
+  });
+  let label = "Trip Cost";
+  let chartType = "client-data";
+  let color = "rgba(216, 17, 89, 1)";
+
   var ctx = document.getElementById(chartType).getContext("2d");
   var myLineChart = new Chart(ctx, {
     type: "line",

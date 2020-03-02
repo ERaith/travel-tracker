@@ -2,6 +2,7 @@ import { authenticate } from "./auth.js";
 import Admin from "./admin.js";
 import Traveler from "./traveler.js";
 import { updateUser } from "./index";
+import moment from "moment";
 
 class DatabaseController {
   constructor() {
@@ -41,7 +42,7 @@ class DatabaseController {
   }
 
   async fetchUserTrips(authUser) {
-    let allTrips = await this.fetchAllTrips();
+       let allTrips = await this.fetchAllTrips();
     let userTrips = allTrips.trips.filter(trip => {
       return trip.userID === authUser.id;
     });
@@ -80,18 +81,8 @@ class DatabaseController {
       });
       return tripsPlusCost;
     }, []);
-
+    console.log(userTripsPlusCost)
     return userTripsPlusCost;
-
-    /*
-      create new object, fetch both trips and trip costs
-      [{
-        userTrip:
-        tripCost:
-      },{
-
-      }]
-    */
   }
 
   async fetchDestinations() {
@@ -111,21 +102,27 @@ class DatabaseController {
     return destinations.destinations;
   }
 
-  async bookTrip(name,travelers,startDate,endDate,destination){
+  async bookTrip(travelers,startDate,endDate,destination){
+    console.log(this.authUser)
+    startDate = moment(startDate);
+    endDate = moment(endDate);
+    let duration = endDate.diff(startDate,'days');
+    console.log(duration);
+
     let id = Math.floor(1000 + Math.random() * 9000);
     let data = JSON.stringify({
 
-      "userID": 39,
+      "userID": this.authUser.id,
       "id":id,
-      "destinationID": 1,
-      "travelers": 1,
-      "date": "2019/09/16",
-      "duration": 8,
+      "destinationID": parseInt(destination),
+      "travelers": parseInt(travelers),
+      "date": startDate.format('YYYY/MM/DD'),
+      "duration": duration,
       "status": "pending",
       "suggestedActivities": []
    });
    //      "tripID":456789123,
-
+   console.log(data)
    let response = await fetch(
     "https://fe-apps.herokuapp.com/api/v1/travel-tracker/1911/trips/trips",
     {
@@ -142,8 +139,23 @@ class DatabaseController {
     
   }
 
-
-
+  costOfTrip(destinationData,travelers,startDate,endDate,destination) {
+      startDate = moment(startDate);
+      endDate = moment(endDate);
+      console.log('here')
+      let duration = endDate.diff(startDate,'days');
+      console.log(destination)
+      let trip = destinationData.find(trip => {
+        console.log(trip.id)
+        return trip.id == destination;
+      })
+      console.log(trip)
+      let cost =
+        (trip.estimatedLodgingCostPerDay * duration +
+          trip.estimatedFlightCostPerPerson *travelers) * 1.1;
+          cost = Math.round(cost);
+    return cost;
+  }
 
 }
 
