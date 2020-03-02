@@ -18,7 +18,6 @@ class DatabaseController {
       if (response.role === "client") {
         this.authUser = new Traveler(response);
         domUpdates.updateUser(this.authUser,this);
-
       } else {
         this.authUser = new Admin(response);
         domUpdates.updateUser(this.authUser,this);
@@ -27,6 +26,7 @@ class DatabaseController {
       return response.message;
     }
   }
+
   async fetchSingleUserInfo(authUser) {
     let response = await fetch(
       BASE_URL+ TRAVEL_ENDPOINT+ `${authUser.id}`
@@ -35,6 +35,7 @@ class DatabaseController {
 
     return userInfo;
   }
+  
   async fetchAllTrips() {
     let response = await fetch(
       BASE_URL+TRIP_ENDPOINT

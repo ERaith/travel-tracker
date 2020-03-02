@@ -7,10 +7,6 @@ class User {
     }
 
   }
-  updateName(name) {
-    this.name = name;
-  }
-
 }
 
 export default User;
