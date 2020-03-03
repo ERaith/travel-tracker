@@ -3,7 +3,8 @@ import {
 } from "./auth.js";
 import Admin from "./admin.js";
 import Traveler from "./traveler.js";
-// import { updateUser }from "./domUpdate";  
+const usersInfo = require("../private/userDB");
+// import { updateUser }from "./domUpdate";
 import moment from "moment";
 import {
   BASE_URL,
@@ -49,6 +50,22 @@ class DatabaseController {
       BASE_URL + TRIP_ENDPOINT
     );
     let allTrips = await response.json();
+    let destinations = await this.fetchDestinations();
+    allTrips = allTrips.trips;
+    allTrips = allTrips.map(trip => {
+      let name = usersInfo.travelers.find(user=>{
+        return user.id === trip.userID
+      }).name
+
+      let destination = destinations.find(destination => {
+        return destination.id === trip.destinationID;
+      }).destination;
+
+      return {...trip,clientName:name,destination:destination}
+    })
+    allTrips.sort((a,b) => {
+        return moment(b.date) - moment(a.date)
+    })
     return allTrips;
   }
 
@@ -117,10 +134,10 @@ class DatabaseController {
     // endDate = moment(endDate);
     // let duration = endDate.diff(startDate, 'days');
 
-    
+
     // let id = this.authUser.generateRandomNumber()
 
-    
+
     // let data = JSON.stringify({
 
     //   "userID": this.authUser.id,

@@ -58,6 +58,7 @@ class Traveler extends User {
       "suggestedActivities": []
     });
     //      "tripID":456789123,
+    console.log(tripData)
     return tripData;
   }
 
