@@ -50,12 +50,19 @@ class DatabaseController {
       BASE_URL + TRIP_ENDPOINT
     );
     let allTrips = await response.json();
+    let destinations = await this.fetchDestinations();
     allTrips = allTrips.trips;
     allTrips = allTrips.map(trip => {
       let name = usersInfo.travelers.find(user=>{
         return user.id === trip.userID
       }).name
-      return {...trip,clientName:name}
+
+      let destination = destinations.find(destination => {
+        return destination.id === trip.destinationID;
+      }).destination;
+
+
+      return {...trip,clientName:name,destination:destination}
     })
     console.log(allTrips)
     return allTrips;
