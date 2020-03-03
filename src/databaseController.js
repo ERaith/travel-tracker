@@ -61,10 +61,11 @@ class DatabaseController {
         return destination.id === trip.destinationID;
       }).destination;
 
-
       return {...trip,clientName:name,destination:destination}
     })
-    console.log(allTrips)
+    allTrips.sort((a,b) => {
+        return moment(b.date) - moment(a.date)
+    })
     return allTrips;
   }
 

@@ -37,6 +37,7 @@ function generateTableHTML(adminTripData) {
   let rowsHTML = adminTripData.reduce((rowHTML, trip) => {
     let row = `
     <tr>
+      <th>${trip.clientName}</th>
       <th id="${trip.id}">#${trip.id}</th>
       <th id="destination">${trip.destination}</th>
       <th id="travelers-col">${trip.travelers}</th>
@@ -55,6 +56,7 @@ function generateTableHTML(adminTripData) {
   <table data-toggle="table" id="table_data" class="table table-bordered table-hover">
   <thead class="theme-dark">
     <tr class = 'header'>
+    <th id="userName">User</th>
     <th id="tripID">Trip#</th>
     <th id="destination">Desitination</th>
     <th id="travelers-head">Travelers</th>
