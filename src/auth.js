@@ -2,6 +2,7 @@ const usersInfo = require("../private/userDB");
 var bcrypt = require("bcryptjs");
 
 export function authenticate(userName, passwordAttempt) {
+  console.log(userName)
   let curUser = usersInfo.travelers.find(user => {
     return user.name === userName;
   });

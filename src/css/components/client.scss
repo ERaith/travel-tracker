@@ -16,7 +16,7 @@ section {
     background-color: $secondary-background;
     display: flex;
     flex-grow: 1;
- 
+
     @include margin($margin, $margin, $margin, $margin);
     box-shadow: $box-shadow;
   }
@@ -59,7 +59,7 @@ section {
 
 .client-data {
   @include border-radius($radius, $radius, 0, 0);
-  overflow: hidden;
+  // overflow: hidden;
 }
 
 .client-trip-preperation {
@@ -71,7 +71,9 @@ section {
   padding-top: 30px;
   flex-grow: 1;
   font-size: $font-size-medium;
-  overflow:scroll;
+  overflow-y:scroll;
+  padding-right: 17px;
+  box-sizing: content-box;
 
 }
 
@@ -90,6 +92,7 @@ section {
     tr {
       height: 2rem;
       background: #f6f6f6;
+      color:black;
 
       &:nth-of-type(odd) {
         background: #e9e9e9;

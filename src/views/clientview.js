@@ -35,12 +35,12 @@ export function generateClientView(
         <div class = chart-wrapper>
           <canvas class="chart" id="client-data"></canvas>
         </div>
-  
+
       </article>
     </section>
     <section class="client-trip-preperation">
     <article class="client-trip-selection">
-    
+
 
       </article>
       <article class="client-trip-preview">
@@ -59,9 +59,9 @@ export function generateClientView(
 
 function eventListeners(destinationData, databaseController, domUpdates) {
   let submitButton = $("#myTripButtonSubmit");
-  $("form.login-form :input").on("change keyup paste", function () {
+  $("form.login-form :input").on("change keyup paste", function() {
     let disabled = true;
-    $("form.login-form :input").each(function () {
+    $("form.login-form :input").each(function() {
       if (!$(this).hasClass("qs-overlay-year")) {
         if ($(this).val() != "") {
           disabled = false;
@@ -71,11 +71,11 @@ function eventListeners(destinationData, databaseController, domUpdates) {
     submitButton.prop("disabled", disabled);
     updateTravelCost(destinationData, databaseController);
   });
-  submitButton.on("click", function () {
+  submitButton.on("click", function() {
     submit(databaseController, domUpdates);
   });
 
-  $("#destination-dropdown").on("change", function () {
+  $("#destination-dropdown").on("change", function() {
     let trip = destinationData.find(destination => {
       return destination.id == $(this).val();
     });
@@ -86,7 +86,7 @@ function eventListeners(destinationData, databaseController, domUpdates) {
 
 function initDatePicker() {
   let today = new Date();
-  Date.prototype.addDays = function (days) {
+  Date.prototype.addDays = function(days) {
     var date = new Date(this.valueOf());
     date.setDate(date.getDate() + days);
     return date;
@@ -121,7 +121,7 @@ function generateFormHTML(destinationData) {
   let formHTML = `
   <div class="destination-picker">
   <form class="login-form">
-    <div class = "destination"> 
+    <div class = "destination">
 
     <label for="travelers">Number of travelers (1-10):</label>
     <input type="number" id="travelers" name="travelers" min="10" max="100">
@@ -137,7 +137,7 @@ function generateFormHTML(destinationData) {
 
     <label for="from-date">Date of Departure</label>
     <input class ="end" type="text">
-    
+
     </div>
   </form>
   <button id = "myTripButtonSubmit" disabled='true'>Submit</button>
@@ -153,14 +153,13 @@ async function submit(databaseController, domUpdates) {
   var startDate = $(".start").val();
   var endDate = $(".end").val();
   var destination = $("#destination-dropdown").val();
- 
+
   let tripData = databaseController.authUser.createTrip(
     travelers,
     startDate,
     endDate,
     destination
   );
-  console.log(tripData)
   let updatedClientTripsData = await databaseController.bookTrip(tripData)
   generateTableHTML(updatedClientTripsData);
   $("#travelers").val("");

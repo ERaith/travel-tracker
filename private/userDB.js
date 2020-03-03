@@ -302,7 +302,8 @@ let travelers = {
       role: "client"
     },
     {
-      username: 'agency',
+      id:51,
+      name: 'agency',
       password: '$2a$05$KYICVhRS.JRdWcuY0s3jyuNomNAfBmNZmVYHqLXdX/uWQQQ3J7msW',
       role:"admin"
     }

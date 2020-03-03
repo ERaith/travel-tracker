@@ -1,6 +1,7 @@
 const { generateLogin } = require("./views/login");
 import $ from "jquery";
 import { generateClientView } from "./views/clientview";
+import { generateAdminView } from "./views/adminview";
 
 class DomUpdate {
   constructor() {
@@ -17,9 +18,10 @@ class DomUpdate {
     generateClientView(this, clientTripsData, totalTripCost, destinationData,databaseController);
   }
 
-  adminView() {
+  adminView(adminTripData) {
     this.clearView();
-    generateAdminView(this);
+
+    generateAdminView(this,adminTripData);
   }
 
   clearView() {
@@ -30,7 +32,7 @@ class DomUpdate {
     let data = clientTripsData.map(trip => {
       return trip.cost;
     });
-  
+
     let labels = clientTripsData.map(trip => {
       // return moment(`${trip.date}`).format('MM DD, YYYY');
       return `${trip.date}`;
@@ -38,7 +40,7 @@ class DomUpdate {
     let label = "Trip Cost";
     let chartType = "client-data";
     let color = "rgba(216, 17, 89, 1)";
-  
+
     var ctx = document.getElementById(chartType).getContext("2d");
     var myLineChart = new Chart(ctx, {
       type: "line",
@@ -98,10 +100,13 @@ class DomUpdate {
     });
   }
   async updateUser(authUser,databaseController) {
+    console.log(authUser.whoAmI())
     switch (authUser.whoAmI()) {
       case "admin":
         //run admin interface here
-        this.adminView();
+        let adminTripData = await databaseController.fetchAllTrips();
+        console.log(adminTripData)
+        this.adminView(adminTripData);
         break;
       case "client":
         let clientTripsData = await databaseController.fetchUserTrips(authUser);
