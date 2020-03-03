@@ -1,5 +1,5 @@
 import $ from "jquery";
-export function generateAdminView(domUpdates, adminTripData) {
+export function generateAdminView(domUpdates, adminTripData,databaseController) {
 
   let adminBaseHTML = `
     <div class="login-page">
@@ -18,11 +18,23 @@ export function generateAdminView(domUpdates, adminTripData) {
     `;
 
   $(domUpdates.body).append(adminBaseHTML);
+
+  generateTableHTML(adminTripData);
   let search = $('#search')
   $(search).on("change keyup paste", function() {
       filter($(search).val(),adminTripData)
   })
-  generateTableHTML(adminTripData);
+  let clientTrips = $('.client-trips')
+  $(clientTrips).on("click", function() {
+    if($(event.target).is(":button")){
+      updateUI(search,databaseController,$(event.target))
+    }
+  })
+}
+
+async function updateUI(search,databaseController,eventTarget){
+  let updatedData = await databaseController.modifyTrip($(eventTarget).attr('id'));
+  filter($(search).val(),updatedData)
 }
 
 //Guthry Tute

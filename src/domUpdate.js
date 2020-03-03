@@ -18,10 +18,9 @@ class DomUpdate {
     generateClientView(this, clientTripsData, totalTripCost, destinationData,databaseController);
   }
 
-  adminView(adminTripData) {
+  adminView(adminTripData,databaseController) {
     this.clearView();
-
-    generateAdminView(this,adminTripData);
+    generateAdminView(this,adminTripData,databaseController);
   }
 
   clearView() {
@@ -103,10 +102,8 @@ class DomUpdate {
     console.log(authUser.whoAmI())
     switch (authUser.whoAmI()) {
       case "admin":
-        //run admin interface here
         let adminTripData = await databaseController.fetchAllTrips();
-        console.log(adminTripData)
-        this.adminView(adminTripData);
+        this.adminView(adminTripData,databaseController);
         break;
       case "client":
         let clientTripsData = await databaseController.fetchUserTrips(authUser);

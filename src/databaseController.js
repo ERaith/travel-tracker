@@ -53,7 +53,7 @@ class DatabaseController {
     let destinations = await this.fetchDestinations();
     allTrips = allTrips.trips;
     allTrips = allTrips.map(trip => {
-      let name = usersInfo.travelers.find(user=>{
+      let name = usersInfo.travelers.find(user => {
         return user.id === trip.userID
       }).name
 
@@ -61,10 +61,14 @@ class DatabaseController {
         return destination.id === trip.destinationID;
       }).destination;
 
-      return {...trip,clientName:name,destination:destination}
+      return {
+        ...trip,
+        clientName: name,
+        destination: destination
+      }
     })
-    allTrips.sort((a,b) => {
-        return moment(b.date) - moment(a.date)
+    allTrips.sort((a, b) => {
+      return moment(b.date) - moment(a.date)
     })
     return allTrips;
   }
@@ -163,6 +167,80 @@ class DatabaseController {
     let retrievedData = await response.json();
     let updatedUserTrips = await this.fetchUserTrips(this.authUser);
     return updatedUserTrips;
+
+  }
+
+  async modifyTrip(type) {
+    let modifyType = type.split('-')[0];
+    let id = type.split('-')[1]
+    let response;
+    switch (modifyType) {
+      case 'approve':
+        response = await this.approveTrip(id)
+        break;
+      case 'delete':
+        response = await this.deleteTrip(id)
+        break;
+      default:
+
+    }
+    let updatedTripData = await this.fetchAllTrips();
+    return updatedTripData;
+  }
+
+  async approveTrip(id) {
+    // Sample data format to check against
+    // {
+    // "id": 92829,
+    //  "status": "approved"
+    //  }
+
+    let data = JSON.stringify({
+      id:parseInt(id),
+      status:"approved"
+    })
+
+    console.log(data)
+
+    let response = await fetch(
+      BASE_URL + UPDATE_TRIP_ENDPOINT, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: data
+      }
+    );
+
+    let retrievedData = await response.json();
+    console.log(retrievedData)
+
+
+  }
+
+  async deleteTrip(id) {
+    // Sample data format to check against
+    // {
+    //   "id": 92829
+    // }
+    let data = JSON.stringify({
+      id:parseInt(id)
+    })
+    console.log(data)
+
+    let response = await fetch(
+      BASE_URL + TRIP_ENDPOINT, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: data
+      }
+    );
+
+    let updatedTripData = await this.fetchAllTrips();
+    return updatedTripData;
+
 
   }
 
