@@ -5,6 +5,8 @@ class Admin extends User {
     super(info)
     this.id = info.id;
   }
+
+
 }
 
 export default Admin;
