@@ -56,7 +56,7 @@ describe("Traveler Tests", function () {
       id: 30,
       cost:100
     }];
-    expect(traveler.updateTotalCost(usertrips)).to.equal('$300.00')
+    expect(traveler.updateTotalCost(usertrips,'Spent')).to.equal('$300.00')
   });
 
   it("should create a new trip", function () {
