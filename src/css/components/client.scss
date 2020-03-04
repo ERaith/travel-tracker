@@ -1,68 +1,53 @@
 section {
   display: flex;
   flex-direction: row;
-  flex-grow: 1;
-  justify-content: center;
-  height: 30rem;
-
-  .total-cost {
-    font-size: $font-size-large;
-    color: white;
-    display: flex;
-    justify-content: end;
-  }
-
-  .client-trip-selection {
-    background-color: $secondary-background;
-    display: flex;
-    flex-grow: 1;
+  height: 34rem;
+  max-width: 1200px;
     @include margin($margin, $margin, $margin, $margin);
-    box-shadow: $box-shadow;
-  }
 
-  .client-trip-preview {
-    background-color: $secondary-background;
-    display: flex;
-    flex-grow: 1;
-    max-width: 415px;
-    @include margin($margin, $margin, $margin, $margin);
-    box-shadow: $box-shadow;
 
-    img {
-      width: 400px;
-    }
-  }
-
-  .client-overview {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
-    flex-grow: 1;
-    height: 100%;
-    background-color: $component-background;
-    @include margin($margin, $margin, $margin, $margin);
-    box-shadow: $box-shadow;
-  }
-
-  .client-trips {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-    height: 100%;
-    background-color: $component-background;
-    @include margin($margin, $margin, $margin, $margin);
-    @include padding(2rem, 2rem, 2rem, 2rem);
-    box-shadow: $box-shadow;
-  }
 }
 
-.client-data {
-  @include border-radius($radius, $radius, 0, 0);
-  height: 40rem;
+.client-trip-preview {
+  flex-grow: 3;
+  min-width: 300px;
+  max-width: 700px;
+
+  box-shadow: $box-shadow;
+
+  img {
+    height: 100%;
+  }
+}
+.table-wrapper {
+  width: 80%;
+  background-color: $primary-background;
   @include margin($margin, $margin, $margin, $margin);
-  @include padding($padding, $padding, $padding, $padding);
-  // overflow: hidden;
+}
+.client-overview {
+  background-color: $primary-background;
+  @include margin($margin, $margin, $margin, $margin);
+  min-width: 300px;
+  max-width: 700px;
+}
+
+.client-trips {
+  height: 100%;
+  background-color: $secondary-background;
+  @include margin($margin, $margin, $margin, $margin);
+  @include padding(2rem, 2rem, 2rem, 2rem);
+  box-shadow: $box-shadow;
+  flex-grow: 3;
+  margin-left: 2rem;
+}
+
+.client-trip-data {
+  flex-grow: 2;
+  width: 600px;
+}
+
+#canvas {
+  width:100%;
 }
 
 .client-trip-preperation {
@@ -70,24 +55,32 @@ section {
 }
 
 .destination-picker {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
+  // display: flex;
+  // flex-direction: column;
+  // flex-wrap: wrap;
   @include form();
+  height:100%;
   color: white;
+    background-color: $secondary-background;
+    min-width: 300px;
+    max-width: 700px;
 
-  form {
-    display: flex;
-    flex-direction: row;
-  }
+    box-shadow: $box-shadow;
+
+
+  // form {
+  //   display: flex;
+  //   flex-direction: row;
+  // }
 
   .dates {
-    width: 30%;
+
+    width: 100%;
     @include padding($padding, $padding, $padding, $padding);
   }
 
   .destination {
-    width: 70%;
+    width: 100%;
     @include padding($padding, $padding, $padding, $padding);
   }
 }

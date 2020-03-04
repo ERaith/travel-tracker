@@ -13,36 +13,26 @@ export function generateClientView(
   databaseController
 ) {
   let clientHTML = `
-    <section class="client-data">
-      <article class="client-trips">
-      <div class = "total-cost">
-        <h1>Total Cost: <span>${totalTripCost}</span></h1>
-        </div>
-        <div class="table-wrap">
-          <br>
-          <div class="table-responsive">
-          </div>
-        </div>
-        </div>
-
-      </article>
-      <article class="client-overview">
-
-        <div class = chart-wrapper>
-          <canvas class="chart" id="client-data"></canvas>
-        </div>
-
-      </article>
-    </section>
-    <section class="client-trip-preperation">
+  <section>
     <article class="client-trip-selection">
+    </article>
+    <article class="client-trip-preview">
+      <img id="preview-trip" src="https://images.unsplash.com/photo-1489171084589-9b5031ebcf9b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2089&q=80" alt="trip preview">
+    </article>
+  </section>
+  <section>
+  <article class="client-trip-data">
+      </canvas><canvas id="client-data"></canvas>
+  </article>
+    <article>
+      <div class="table-wrapper">
+        <div class="table-responsive">
+        </div>
+      </div>
+      </div>
+    </article>
 
-
-      </article>
-      <article class="client-trip-preview">
-    <img id = "preview-trip"src=  "https://images.unsplash.com/photo-1489171084589-9b5031ebcf9b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2089&q=80" alt = "trip preview">
-      </article>
-    </section>
+  </section>
     `;
   $(domUpdates.main).append(clientHTML);
   generateFormHTML(destinationData);
@@ -50,6 +40,7 @@ export function generateClientView(
   eventListeners(destinationData, databaseController, domUpdates);
   domUpdates.displayLineChart(clientTripsData);
   generateTableHTML(clientTripsData);
+  domUpdates.updateTotalCost(clientTripsData, 'Spent');
 }
 
 function eventListeners(destinationData, databaseController, domUpdates) {
@@ -108,13 +99,14 @@ function updateTravelCost(destinationData) {
     endDate,
     destination
   );
-  $(".trip-cost").text(`$${cost}`);
+  $(".trip-cost").text(`Estimated Trip Cost: $${cost}`);
 }
 
 function generateFormHTML(destinationData) {
   let dropdownHTML = generateDropDown(destinationData);
   let formHTML = `
   <div class="destination-picker">
+
   <form class="login-form">
     <div class = "destination">
 
@@ -136,7 +128,8 @@ function generateFormHTML(destinationData) {
     </div>
   </form>
   <button id = "myTripButtonSubmit" disabled='true'>Submit</button>
-  <span class ="trip-cost"></span>
+  <h2><span class ="trip-cost"></span></h2>
+
   `;
 
   $(".client-trip-selection").empty();
@@ -159,19 +152,20 @@ async function submit(databaseController, domUpdates) {
   generateTableHTML(updatedClientTripsData);
   $("#travelers").val("");
   domUpdates.displayLineChart(updatedClientTripsData);
+
 }
 
 function generateTableHTML(clientTripsData) {
   let rowsHTML = clientTripsData.reduce((rowHTML, trip) => {
     let row = `
     <tr>
-      <th id="${trip.id}">#${trip.id}</th>
-      <th id="destination">${trip.destination}</th>
-      <th id="travelers-col">${trip.travelers}</th>
-      <th id="date">${trip.date}</th>
-      <th id="duration">${trip.duration}</th>
-      <th id="status">${trip.status}</th>
-      <th id="cost">${trip.cost}</th>
+      <td class = "flex-row" id="${trip.id}">#${trip.id}</td>
+      <td class = "flex-row" id="destination">${trip.destination}</td>
+      <td class = "flex-row" id="travelers-col">${trip.travelers}</td>
+      <td class = "flex-row" id="date">${trip.date}</td>
+      <td class = "flex-row" id="duration">${trip.duration}</td>
+      <td class = "flex-row" id="status">${trip.status}</td>
+      <td class = "flex-row" id="cost">${trip.cost}</td>
     </tr>
     `;
     rowHTML = rowHTML.concat(" ", row);
@@ -179,15 +173,15 @@ function generateTableHTML(clientTripsData) {
   }, "");
   let tableHTML = `
   <table data-toggle="table" id="table_data" class="table table-bordered table-hover">
-  <thead class="theme-dark">
-    <tr class = 'header'>
-    <th id="tripID">Trip#</th>
-    <th id="destination">Desitination</th>
-    <th id="travelers-head">Travelers</th>
-    <th id="date">Date</th>
-    <th id="duration">Duration(days)</th>
-    <th id="status">Status</th>
-    <th id="cost">Cost</th>
+  <thead>
+    <tr class = 'flex-table header'>
+    <th class = "flex-row" id="tripID">Trip#</th>
+    <th class = "flex-row" id="destination">Desitination</th>
+    <th class = "flex-row" id="travelers-head">Travelers</th>
+    <th class = "flex-row" id="date">Date</th>
+    <th class = "flex-row" id="duration">Duration(days)</th>
+    <th class = "flex-row" id="status">Status</th>
+    <th class = "flex-row" id="cost">Cost</th>
     </tr>
   </thead>
   <tbody>

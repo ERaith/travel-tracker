@@ -27,6 +27,17 @@ class DomUpdate {
   clearView() {
     $(this.main).empty();
   }
+
+  updateTotalCost(filteredData,type) {
+    console.log(filteredData)
+    let total = Math.round(filteredData.reduce((sum,trip) => {
+
+      sum = sum + (trip.adminFee ||trip.cost)
+      return sum;
+    },0))
+    $(this.totalIncome).text(`${type}: $${total}`);
+  }
+
   displayLineChart(clientTripsData) {
 
     let data = clientTripsData.map(trip => {

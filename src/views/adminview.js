@@ -36,7 +36,7 @@ export function generateAdminView(domUpdates, adminTripData,databaseController) 
       updateUI(search,databaseController,$(event.target),domUpdates)
     }
   })
-    updateTotalCost(adminTripData,domUpdates);
+    domUpdates.updateTotalCost(adminTripData,'Income:');
 }
 
 async function updateUI(search,databaseController,eventTarget,domUpdates){
@@ -51,14 +51,6 @@ function filter(searchText,adminTripData,domUpdates) {
   })
   generateUserCards(filteredData)
   generateTableHTML(filteredData);
-}
-
-function updateTotalCost(filteredData,domUpdates) {
-  let total = Math.round(filteredData.reduce((sum,trip) => {
-    sum +=trip.adminFee;
-    return sum;
-  },0))
-  $(domUpdates.totalIncome).text(`Income: $${total}`);
 }
 
 function generateUserCards(adminTripData) {
@@ -92,16 +84,16 @@ function generateTableHTML(adminTripData) {
   let rowsHTML = adminTripData.reduce((rowHTML, trip) => {
     let row = `
     <tr class = "flex-table row">
-      <td class = "flex-row">${trip.clientName}</th>
-      <td class = "flex-row" id="${trip.id}">#${trip.id}</th>
-      <td class = "flex-row" id="destination">${trip.destination}</th>
-      <td class = "flex-row" id="travelers-col">${trip.travelers}</th>
-      <td class = "flex-row" id="date">${trip.date}</th>
-      <td class = "flex-row" id="duration">${trip.duration}</th>
-      <td class = "flex-row" id="status">${trip.status}</th>
-      <td class = "flex-row" id="cost">${trip.adminFee}</th>
-      <td class = "flex-row" id="approve"><button id = "approve-${trip.id}">Approve</button></th>
-      <td class = "flex-row" id="delete-${trip.id}"><button id = "delete-${trip.id}">Deny</button></th>
+      <td class = "flex-row"> ${trip.clientName}</td>
+      <td class = "flex-row" id="${trip.id}">#${trip.id}</td>
+      <td class = "flex-row" id="destination">${trip.destination}</td>
+      <td class = "flex-row" id="travelers-col">${trip.travelers}</td>
+      <td class = "flex-row" id="date">${trip.date}</td>
+      <td class = "flex-row" id="duration">${trip.duration}</td>
+      <td class = "flex-row" id="status">${trip.status}</td>
+      <td class = "flex-row" id="cost">${trip.adminFee}</td>
+      <td class = "flex-row" id="approve"><button id = "approve-${trip.id}">Approve</button></td>
+      <td class = "flex-row" id="delete-${trip.id}"><button id = "delete-${trip.id}">Deny</button></td>
     </tr>
     `;
     rowHTML = rowHTML.concat(" ", row);

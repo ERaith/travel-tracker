@@ -20,8 +20,8 @@ export function generateLogin(domUpdates, databaseController, main) {
     var name = $("#userName").val();
     var password = $("#password").val();
     // Load Default user
-    name = 'agency';
-    // name = "Ham Leadbeater"
+    // name = 'agency';
+    name = "Ham Leadbeater"
     password = 'travel2020'
 
     databaseController.login(name, password, domUpdates);
