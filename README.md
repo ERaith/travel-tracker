@@ -2,23 +2,22 @@
 
 Travel tracker is a Javascript based app that allows either a client or admin to login and manage their upcoming trips! A user can pick from a variety of destinations provided by a heroku backend. The admin is then able to approve or delete trips based on their inclination. 
 
+This Project works on utilizing async functions with await to fetch data from a heroku backend. 
+
+## Screenshots:
+![Login Screen](https://github.com/ERaith/travel-tracker/blob/master/Screen%20Shot%202020-03-04%20at%201.00.09%20AM.png)
+![Client Panel](https://github.com/ERaith/travel-tracker/blob/master/Screen%20Shot%202020-03-04%20at%201.02.17%20AM.png)
+![Admin Panel](https://github.com/ERaith/travel-tracker/blob/master/Screen%20Shot%202020-03-04%20at%201.02.54%20AM.png)
+
+
+
 ## Dependencies:
 
 * bcrypt
--> A library to help with hashing user information
-```
-npm install bcrypt
-```
 * moment 
--> Library used for manipulating time data.
-```
-npm install moment 
-```
 * jquery 
--> 
-```
-npm install moment 
-```
+* js-datepicker
+
 
 ## Dev-Dependencies:
 * chai
@@ -32,17 +31,7 @@ npm install moment
 npm install moment 
 ```
 
-## Setup
-
-After one person has gone through the steps of cloning down this repo and editing the remote, everyone should clone down the repo. 
-
-Then install the library dependencies. Run:
-
-```bash
-npm install
-```
-
-To verify that it is setup correctly, run `npm start` in your terminal. Go to `http://localhost:8080/` and you should see a page with some `h1` text and a pink background. If that's the case, you're good to go. Enter `control + c` in your terminal to stop the server at any time.
-
+## Future Thoughts
+I expect that the near future a refactor to group the two table generators together would reduce the amount of redundent code. SASS refactoring is a must, currently mixins are used, however it is incomplete and leaves areas for refactoring. UUID should be incorporated instead of using a 4 digit randomizer for a industry standard approach.
 
 
