@@ -21,8 +21,8 @@ export function generateLogin(domUpdates, databaseController, main) {
     var password = $("#password").val();
 
     // name = 'agency';
-    name = "Ham Leadbeater"
-    password = 'travel2020'
+    // name = "Ham Leadbeater"
+    // password = 'travel2020'
 
     let response = databaseController.login(name, password, domUpdates)
     console.log(response)
