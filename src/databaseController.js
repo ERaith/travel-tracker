@@ -31,7 +31,7 @@ class DatabaseController {
         domUpdates.updateUser(this.authUser, this);
       }
     } else {
-      return response.message;
+      return response;
     }
   }
 
@@ -40,7 +40,6 @@ class DatabaseController {
       BASE_URL + TRAVEL_ENDPOINT + `${authUser.id}`
     );
     let userInfo = await response.json();
-
     return userInfo;
   }
 

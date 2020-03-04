@@ -16,13 +16,19 @@ export function authenticate(userName, passwordAttempt) {
         role: curUser.role,
         id: curUser.id,
         name: curUser.name
-      };
+      }
+    } else {
+      return {
+        message: 'Password Incorrect',
+        failed: true
+      }
     }
-  } else {
-    return {
-      message: "Login Failed"
-    };
-  }
+  }else {
+  return {
+    message: "User Not Found",
+    failed: true
+  };
+}
 }
 
 export function newUserPassword() {

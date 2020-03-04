@@ -21,10 +21,16 @@ export function generateLogin(domUpdates, databaseController, main) {
     var password = $("#password").val();
     // Load Default user
     // name = 'agency';
-    name = "Ham Leadbeater"
-    password = 'travel2020'
+    // name = "Ham Leadbeater"
+    // password = 'travel2020'
 
-    databaseController.login(name, password, domUpdates);
+    let response = databaseController.login(name, password, domUpdates)
+
+    if(response.failed){
+
+      alert(response.message);
+    }
+
     return false;
   });
   return loginButton;
