@@ -36,7 +36,7 @@ export function generateAdminView(domUpdates, adminTripData,databaseController) 
       updateUI(search,databaseController,$(event.target),domUpdates)
     }
   })
-    domUpdates.updateTotalCost(adminTripData,'Income:');
+    domUpdates.updateTotalCost(databaseController,adminTripData,'Income:');
 }
 
 async function updateUI(search,databaseController,eventTarget,domUpdates){

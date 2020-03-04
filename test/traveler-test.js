@@ -56,14 +56,14 @@ describe("Traveler Tests", function () {
       id: 30,
       cost:100
     }];
-    expect(traveler.calcTotalTripCost(usertrips)).to.equal('$300.00')
+    expect(traveler.updateTotalCost(usertrips)).to.equal('$300.00')
   });
 
   it("should create a new trip", function () {
     let travelers = "2";
     let startDate = "Mon, Mar 02 2020";
     let endDate = "Sat, Mar 14 2020";
-    let destination = "50"; 
+    let destination = "50";
 
     let trip = JSON.parse(traveler.createTrip(travelers, startDate, endDate, destination));
     expect(trip.userID).to.equal(1);

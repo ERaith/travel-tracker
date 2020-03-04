@@ -1,17 +1,19 @@
-
 .login-page {
   width: 360px;
   padding: 8% 0 0;
   margin: auto;
 }
+
 .form {
   @include form();
   background-color: $component-background;
   max-width: 360px;
 }
+
 input {
- @include input();
+  @include input();
 }
+
 button {
   @include button();
 }
@@ -23,6 +25,7 @@ select {
 .form .register-form {
   display: none;
 }
+
 .container {
   position: relative;
   z-index: 1;

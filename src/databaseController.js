@@ -4,7 +4,6 @@ import {
 import Admin from "./admin.js";
 import Traveler from "./traveler.js";
 const usersInfo = require("../private/userDB");
-// import { updateUser }from "./domUpdate";
 import moment from "moment";
 import {
   BASE_URL,
@@ -82,11 +81,6 @@ class DatabaseController {
     allTrips.sort((a, b) => {
       return moment(b.date) - moment(a.date)
     })
-
-    console.log(allTrips)
-
-
-
     return allTrips;
   }
 
@@ -96,44 +90,42 @@ class DatabaseController {
     let userTrips = allTrips.filter(trip => {
       return trip.userID === authUser.id;
     });
-    console.log(userTrips)
 
-    let destinations = await this.fetchDestinations();
-    // id: 55
-    // userID: 39
-    // destinationID: 49
-    // travelers: 3
-    // date: "2020/03/08"
-    // duration: 6
-    // status: "approved"
-    // suggestedActivities: []
-    // console.log(destinations)
-    // return true;
-    let userTripsPlusCost = userTrips.reduce((tripsPlusCost, trip) => {
-      let myDestination = destinations.find(destination => {
-        return destination.id === trip.destinationID;
-      });
-
-      let cost =
-        (myDestination.estimatedLodgingCostPerDay * trip.duration +
-          myDestination.estimatedFlightCostPerPerson * trip.travelers) * 1.1;
-      cost = Math.round(cost);
-      tripsPlusCost.push({
-        id: trip.id,
-        userID: trip.userID,
-        destination: myDestination.destination,
-        destinationID: trip.destinationID,
-        travelers: trip.travelers,
-        date: trip.date,
-        duration: trip.duration,
-        status: trip.status,
-        suggestedActivities: trip.suggestedActivities,
-        cost: cost
-      });
-      return tripsPlusCost;
-    }, []);
-    console.log(userTripsPlusCost)
-    return userTripsPlusCost;
+    // let destinations = await this.fetchDestinations();
+    // // id: 55
+    // // userID: 39
+    // // destinationID: 49
+    // // travelers: 3
+    // // date: "2020/03/08"
+    // // duration: 6
+    // // status: "approved"
+    // // suggestedActivities: []
+    // // console.log(destinations)
+    // // return true;
+    // let userTripsPlusCost = userTrips.reduce((tripsPlusCost, trip) => {
+    //   let myDestination = destinations.find(destination => {
+    //     return destination.id === trip.destinationID;
+    //   });
+    //
+    //   let cost =
+    //     (myDestination.estimatedLodgingCostPerDay * trip.duration +
+    //       myDestination.estimatedFlightCostPerPerson * trip.travelers) * 1.1;
+    //   cost = Math.round(cost);
+    //   tripsPlusCost.push({
+    //     id: trip.id,
+    //     userID: trip.userID,
+    //     destination: myDestination.destination,
+    //     destinationID: trip.destinationID,
+    //     travelers: trip.travelers,
+    //     date: trip.date,
+    //     duration: trip.duration,
+    //     status: trip.status,
+    //     suggestedActivities: trip.suggestedActivities,
+    //     cost: cost
+    //   });
+    //   return tripsPlusCost;
+    // }, []);
+    return userTrips;
   }
 
   async fetchDestinations() {

@@ -8,7 +8,6 @@ import {
 export function generateClientView(
   domUpdates,
   clientTripsData,
-  totalTripCost,
   destinationData,
   databaseController
 ) {
@@ -39,7 +38,7 @@ export function generateClientView(
   eventListeners(destinationData, databaseController, domUpdates);
   domUpdates.displayLineChart(clientTripsData);
   generateTableHTML(clientTripsData);
-  domUpdates.updateTotalCost(clientTripsData, 'Spent');
+  domUpdates.updateTotalCostDOM(databaseController,clientTripsData, 'Spent');
 }
 
 function eventListeners(destinationData, databaseController, domUpdates) {
@@ -56,7 +55,7 @@ function eventListeners(destinationData, databaseController, domUpdates) {
     submitButton.prop("disabled", disabled);
     updateTravelCost(destinationData, databaseController);
   });
-  
+
   submitButton.on("click", function() {
     submit(databaseController, domUpdates);
   });

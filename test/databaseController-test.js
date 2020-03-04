@@ -14,13 +14,13 @@ import Traveler from "../src/traveler";
 import Admin from "../src/admin";
 chai.use(spies);
 
-describe("Database local tests", function () {
+describe("Database local tests", function() {
 
-  it("should return true", function () {
+  it("should return true", function() {
     expect(true).to.equal(true);
   });
 
-  it('should authenticate a traveler', function () {
+  it('should authenticate a traveler', function() {
     let databaseController = new DatabaseController()
     let domUpdates = {}
     let traveler = new Traveler({
@@ -36,10 +36,10 @@ describe("Database local tests", function () {
   });
 });
 
-describe("Database fetch tests", function () {
+describe("Database fetch tests", function() {
   let databaseController;
   let traveler;
-  beforeEach(function () {
+  beforeEach(function() {
     global.window = {};
     chai.spy.on(global, 'fetch', () => new Promise((resolve, reject) => {}));
     databaseController = new DatabaseController()
@@ -53,38 +53,36 @@ describe("Database fetch tests", function () {
 
   });
 
-  afterEach(function () {
+  afterEach(function() {
     chai.spy.restore();
   })
 
-  it('should fetch all trip from the server', function () {
+  it('should fetch all trip from the server', function() {
     databaseController.fetchAllTrips();
 
     expect(global.fetch).to.be.called(1);
     expect(global.fetch).to.be.called.with(BASE_URL + TRIP_ENDPOINT)
   });
 
-  it('should fetch all destinations from the server', function () {
+  it('should fetch all destinations from the server', function() {
     databaseController.fetchDestinations();
 
     expect(global.fetch).to.be.called(1);
     expect(global.fetch).to.be.called.with(BASE_URL + DESTINATIONS_ENDPOINT)
   });
 
-  it('should post a request to book a trip', function () {
+  it('should post a request to book a trip', function() {
 
-    let data = JSON.stringify(
-      {
-        "id": 1,
-        "userID": 44,
-        "destinationID": 49,
-        "travelers": 1,
-        "date": "2020/03/03",
-        "duration": 11,
-        "status": "pending",
-        "suggestedActivities": []
-     }
-    );
+    let data = JSON.stringify({
+      "id": 1,
+      "userID": 44,
+      "destinationID": 49,
+      "travelers": 1,
+      "date": "2020/03/03",
+      "duration": 11,
+      "status": "pending",
+      "suggestedActivities": []
+    });
 
     databaseController.bookTrip(data);
 
@@ -98,14 +96,14 @@ describe("Database fetch tests", function () {
     })
   });
 
-  it('should fetch all destinations from the server', function () {
+  it('should fetch all destinations from the server', function() {
     databaseController.fetchUserTrips(traveler);
 
     expect(global.fetch).to.be.called(1);
   });
 
-  it('should delete a trip', function () {
-    let id ='1';
+  it('should delete a trip', function() {
+    let id = '1';
     let data = JSON.stringify({
       id: parseInt(id)
     })
@@ -121,8 +119,8 @@ describe("Database fetch tests", function () {
     })
   });
 
-  it('should approve a trip', function () {
-    let id ='1';
+  it('should approve a trip', function() {
+    let id = '1';
     let data = JSON.stringify({
       id: parseInt(id),
       status: "approved"
