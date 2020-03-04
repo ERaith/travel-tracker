@@ -1,3 +1,10 @@
+.client-page{
+  background-color: $primary-background;
+  align-items: flex-start;
+  padding-top: 3rem;
+  @include flexColumn();
+}
+
 section {
   display: flex;
   flex-direction: row;
@@ -8,17 +15,15 @@ section {
 
 .client-trip-preview {
   flex-grow: 3;
-  min-width: 300px;
-  max-width: 700px;
   box-shadow: $box-shadow;
-
+  overflow: hidden;
   img {
-    height: 100%;
+    width: 100%;
+    object-fit: contain;
   }
 }
 
 .table-wrapper {
-  width: 80%;
   background-color: $primary-background;
   @include margin($margin, $margin, $margin, $margin);
 }
@@ -54,8 +59,7 @@ section {
   height: 100%;
   color: white;
   background-color: $secondary-background;
-  min-width: 300px;
-  max-width: 700px;
+  width:500px;
   box-shadow: $box-shadow;
 
   .dates {

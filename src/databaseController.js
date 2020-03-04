@@ -1,6 +1,4 @@
-import {
-  authenticate
-} from "./auth.js";
+import {authenticate} from "./auth.js";
 import Admin from "./admin.js";
 import Traveler from "./traveler.js";
 const usersInfo = require("../private/userDB");
@@ -26,9 +24,15 @@ class DatabaseController {
       if (response.role === "client") {
         this.authUser = new Traveler(response);
         domUpdates.updateUser(this.authUser, this);
+        return {
+          failed: false
+        }
       } else {
         this.authUser = new Admin(response);
         domUpdates.updateUser(this.authUser, this);
+        return {
+          failed: false
+        }
       }
     } else {
       return response;
@@ -73,8 +77,8 @@ class DatabaseController {
         ...trip,
         clientName: name,
         destination: destination.destination,
-        cost:cost,
-        adminFee:adminFee
+        cost: cost,
+        adminFee: adminFee
       }
     })
     allTrips.sort((a, b) => {
@@ -90,40 +94,6 @@ class DatabaseController {
       return trip.userID === authUser.id;
     });
 
-    // let destinations = await this.fetchDestinations();
-    // // id: 55
-    // // userID: 39
-    // // destinationID: 49
-    // // travelers: 3
-    // // date: "2020/03/08"
-    // // duration: 6
-    // // status: "approved"
-    // // suggestedActivities: []
-    // // console.log(destinations)
-    // // return true;
-    // let userTripsPlusCost = userTrips.reduce((tripsPlusCost, trip) => {
-    //   let myDestination = destinations.find(destination => {
-    //     return destination.id === trip.destinationID;
-    //   });
-    //
-    //   let cost =
-    //     (myDestination.estimatedLodgingCostPerDay * trip.duration +
-    //       myDestination.estimatedFlightCostPerPerson * trip.travelers) * 1.1;
-    //   cost = Math.round(cost);
-    //   tripsPlusCost.push({
-    //     id: trip.id,
-    //     userID: trip.userID,
-    //     destination: myDestination.destination,
-    //     destinationID: trip.destinationID,
-    //     travelers: trip.travelers,
-    //     date: trip.date,
-    //     duration: trip.duration,
-    //     status: trip.status,
-    //     suggestedActivities: trip.suggestedActivities,
-    //     cost: cost
-    //   });
-    //   return tripsPlusCost;
-    // }, []);
     return userTrips;
   }
 
@@ -148,23 +118,6 @@ class DatabaseController {
     // endDate = moment(endDate);
     // let duration = endDate.diff(startDate, 'days');
 
-
-    // let id = this.authUser.generateRandomNumber()
-
-
-    // let data = JSON.stringify({
-
-    //   "userID": this.authUser.id,
-    //   "id": id,
-    //   "destinationID": parseInt(destination),
-    //   "travelers": parseInt(travelers),
-    //   "date": startDate.format('YYYY/MM/DD'),
-    //   "duration": duration,
-    //   "status": "pending",
-    //   "suggestedActivities": []
-    // });
-    // //      "tripID":456789123,
-    // console.log(data)
     let response = await fetch(
       BASE_URL + TRIP_ENDPOINT, {
         method: "POST",
@@ -177,7 +130,6 @@ class DatabaseController {
     let retrievedData = await response.json();
     let updatedUserTrips = await this.fetchUserTrips(this.authUser);
     return updatedUserTrips;
-
   }
 
   async modifyTrip(type) {
@@ -223,9 +175,6 @@ class DatabaseController {
     );
 
     let retrievedData = await response.json();
-    console.log(retrievedData)
-
-
   }
 
   async deleteTrip(id) {
@@ -249,9 +198,7 @@ class DatabaseController {
 
     let updatedTripData = await this.fetchAllTrips();
     return updatedTripData;
-
   }
-
 }
 
 export default DatabaseController;

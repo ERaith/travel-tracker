@@ -1,29 +1,29 @@
 .table-container {
+  border-collapse: collapse;
   flex-grow: 1;
   font-size: $font-size-medium;
   overflow-y: scroll;
   width: 100%;
-  border-collapse: collapse;
 }
 
 .table {
-  margin: 0 0 40px;
   font-size: $font-size-medium;
+  margin: 0 0 40px;
 
   thead {
-    font-weight: 900;
+    background:$secondary-background;
     color: $font-color-on-primary;
-    background: $on-primary;
+    font-weight: 900;
   }
 
   tbody {
     tr {
-      height: 2rem;
-      background: #f6f6f6;
+      background: $header-bg;
       color: black;
+      height: 2rem;
 
       &:nth-of-type(odd) {
-        background: #e9e9e9;
+        background: $row-bg;
       }
 
       &:hover {
@@ -34,14 +34,14 @@
 
   td,
   th {
-    vertical-align: middle;
+    border-bottom: solid 1px $table-header-border;
     border-left: solid 1px $table-header-border;
     border-right: solid 1px $table-header-border;
-    border-bottom: solid 1px $table-header-border;
+    vertical-align: middle;
   }
 
   .flex-row {
-    width: 25%;
+    width: 600px;
   }
 
   .flex-cell,
@@ -55,12 +55,12 @@
 
     td,
     th {
-      width: auto;
-      display: block;
-      border: 0;
+      border-bottom: solid 1px $table-header-border;
       border-left: solid 1px $table-header-border;
       border-right: solid 1px $table-header-border;
-      border-bottom: solid 1px $table-header-border;
+      border: 0;
+      display: block;
+      width: auto;
     }
 
     .flex-row {

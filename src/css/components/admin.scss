@@ -1,6 +1,8 @@
 .admin-page {
+  background-color: $primary-background;
   display: flex;
   flex-direction: row;
+  padding-top: 3rem;
 }
 
 .admin-trips {
@@ -18,5 +20,5 @@
   background-color: $secondary-background;
   @include margin($margin, $margin, $margin, $margin);
   @include padding($padding, $padding, $padding, $padding);
-  @include border-radius(0, 0, $radius, $radius);
+  @include border-radius($radius, $radius, $radius, $radius);
 }

@@ -15,7 +15,8 @@ export function authenticate(userName, passwordAttempt) {
         message: "Login Successfull",
         role: curUser.role,
         id: curUser.id,
-        name: curUser.name
+        name: curUser.name,
+        failed: false
       }
     } else {
       return {

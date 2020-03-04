@@ -24,10 +24,7 @@ body {
 }
 
 main {
-  background-color: $primary-background;
-  @include flexColumn();
-  align-items: flex-start;
-  padding-top: 3rem;
+
 }
 
 span {

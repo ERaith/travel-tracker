@@ -12,7 +12,7 @@ export function generateClientView(
   databaseController
 ) {
   let clientHTML = `
-
+<div class = "client-page">
   <section class = "client-booker">
     <article class="client-trip-selection">
     </article>
@@ -30,6 +30,7 @@ export function generateClientView(
     <article class="client-trip-data">
         </canvas><canvas id="client-data"></canvas>
     </article>
+    </div>
     `;
 
   $(domUpdates.main).append(clientHTML);
@@ -155,23 +156,26 @@ async function submit(databaseController, domUpdates) {
 }
 
 function generateTableHTML(clientTripsData) {
-  let rowsHTML = clientTripsData.reduce((rowHTML, trip) => {
-    let row = `
-    <tr>
-      <td class = "flex-row" id="${trip.id}">#${trip.id}</td>
-      <td class = "flex-row" id="destination">${trip.destination}</td>
-      <td class = "flex-row" id="travelers-col">${trip.travelers}</td>
-      <td class = "flex-row" id="date">${trip.date}</td>
-      <td class = "flex-row" id="duration">${trip.duration}</td>
-      <td class = "flex-row" id="status">${trip.status}</td>
-      <td class = "flex-row" id="cost">${trip.cost}</td>
-    </tr>
-    `;
-    rowHTML = rowHTML.concat(" ", row);
-    return rowHTML;
-  }, "");
+
+
+  let  rowsHTML = clientTripsData.reduce((rowHTML, trip) => {
+      let row = `
+      <tr>
+        <td class = "flex-row" id="${trip.id}">#${trip.id}</td>
+        <td class = "flex-row" id="destination">${trip.destination}</td>
+        <td class = "flex-row" id="travelers-col">${trip.travelers}</td>
+        <td class = "flex-row" id="date">${trip.date}</td>
+        <td class = "flex-row" id="duration">${trip.duration}</td>
+        <td class = "flex-row" id="status">${trip.status}</td>
+        <td class = "flex-row" id="cost">${trip.cost}</td>
+      </tr>
+      `;
+      rowHTML = rowHTML.concat(" ", row);
+      return rowHTML;
+    }, "");
+
   let tableHTML = `
-  <h2>Trip Data</h2>
+  <center><h1>-Trip Data-</h1></center>
   <table data-toggle="table" id="table_data" class="table table-bordered table-hover">
   <thead>
     <tr class = 'flex-table header'>
