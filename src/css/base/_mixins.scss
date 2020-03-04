@@ -48,6 +48,7 @@
   position: relative;
   z-index: 1;
   background: $primary-background;
+  font-size: $font-size-medium;
 }
 @mixin input() {
   font-family: $font;
@@ -59,4 +60,13 @@
   padding: 15px;
   box-sizing: border-box;
   font-size: $font-size-medium;
+}
+@mixin flexColumn(){
+  display:flex;
+  flex-direction: column;
+}
+
+@mixin flexRow(){
+  display:flex;
+  flex-direction: row;
 }

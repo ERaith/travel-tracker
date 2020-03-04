@@ -13,26 +13,32 @@ export function generateClientView(
   databaseController
 ) {
   let clientHTML = `
-  <section>
+
+  <section class = "client-booker">
     <article class="client-trip-selection">
     </article>
     <article class="client-trip-preview">
       <img id="preview-trip" src="https://images.unsplash.com/photo-1489171084589-9b5031ebcf9b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2089&q=80" alt="trip preview">
     </article>
+
+
   </section>
-  <section>
-  <article class="client-trip-data">
-      </canvas><canvas id="client-data"></canvas>
-  </article>
-    <article>
+
+
+
+
+    <article class = "past-trips">
       <div class="table-wrapper">
         <div class="table-responsive">
         </div>
       </div>
       </div>
     </article>
+    <article class="client-trip-data">
+        </canvas><canvas id="client-data"></canvas>
+    </article>
 
-  </section>
+
     `;
   $(domUpdates.main).append(clientHTML);
   generateFormHTML(destinationData);
@@ -106,7 +112,7 @@ function generateFormHTML(destinationData) {
   let dropdownHTML = generateDropDown(destinationData);
   let formHTML = `
   <div class="destination-picker">
-
+  <h2> Book Your Trip Today!</h2>
   <form class="login-form">
     <div class = "destination">
 
@@ -172,6 +178,7 @@ function generateTableHTML(clientTripsData) {
     return rowHTML;
   }, "");
   let tableHTML = `
+  <h2>Trip Data</h2>
   <table data-toggle="table" id="table_data" class="table table-bordered table-hover">
   <thead>
     <tr class = 'flex-table header'>

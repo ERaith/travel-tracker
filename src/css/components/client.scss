@@ -1,20 +1,18 @@
 section {
   display: flex;
   flex-direction: row;
-  height: 34rem;
-  max-width: 1200px;
-    @include margin($margin, $margin, $margin, $margin);
-
+  height: 45rem;
+  @include margin($margin, $margin, $margin, $margin);
+  background-color: $secondary-background;
 
 }
+
 
 .client-trip-preview {
   flex-grow: 3;
   min-width: 300px;
   max-width: 700px;
-
   box-shadow: $box-shadow;
-
   img {
     height: 100%;
   }
@@ -43,11 +41,7 @@ section {
 
 .client-trip-data {
   flex-grow: 2;
-  width: 600px;
-}
-
-#canvas {
-  width:100%;
+  width: 950px;
 }
 
 .client-trip-preperation {
@@ -55,9 +49,7 @@ section {
 }
 
 .destination-picker {
-  // display: flex;
-  // flex-direction: column;
-  // flex-wrap: wrap;
+
   @include form();
   height:100%;
   color: white;
@@ -67,11 +59,6 @@ section {
 
     box-shadow: $box-shadow;
 
-
-  // form {
-  //   display: flex;
-  //   flex-direction: row;
-  // }
 
   .dates {
 
@@ -83,6 +70,10 @@ section {
     width: 100%;
     @include padding($padding, $padding, $padding, $padding);
   }
+}
+
+.past-trips {
+  color:white;
 }
 
 .button-container {

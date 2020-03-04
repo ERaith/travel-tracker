@@ -8,12 +8,12 @@
 
 .table {
   margin: 0 0 40px;
+  font-size: $font-size-medium;
 
   thead {
     font-weight: 900;
     color: $font-color-on-primary;
     background: $on-primary;
-    font-size: $font-size-large;
   }
 
   tbody {
