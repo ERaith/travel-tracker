@@ -245,7 +245,6 @@ class DatabaseController {
     let data = JSON.stringify({
       id: parseInt(id)
     })
-    console.log(data)
 
     let response = await fetch(
       BASE_URL + TRIP_ENDPOINT, {
@@ -259,7 +258,6 @@ class DatabaseController {
 
     let updatedTripData = await this.fetchAllTrips();
     return updatedTripData;
-
 
   }
 

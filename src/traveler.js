@@ -29,7 +29,7 @@ class Traveler extends User {
       sum += trip.cost;
       return sum;
     }, 0);
-  
+
     return tripsSum.toLocaleString("us-US", {
       style: "currency",
       currency: "USD"
@@ -58,7 +58,6 @@ class Traveler extends User {
       "suggestedActivities": []
     });
     //      "tripID":456789123,
-    console.log(tripData)
     return tripData;
   }
 

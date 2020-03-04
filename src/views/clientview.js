@@ -20,13 +20,7 @@ export function generateClientView(
     <article class="client-trip-preview">
       <img id="preview-trip" src="https://images.unsplash.com/photo-1489171084589-9b5031ebcf9b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2089&q=80" alt="trip preview">
     </article>
-
-
   </section>
-
-
-
-
     <article class = "past-trips">
       <div class="table-wrapper">
         <div class="table-responsive">
@@ -37,9 +31,8 @@ export function generateClientView(
     <article class="client-trip-data">
         </canvas><canvas id="client-data"></canvas>
     </article>
-
-
     `;
+
   $(domUpdates.main).append(clientHTML);
   generateFormHTML(destinationData);
   initDatePicker();
@@ -63,6 +56,7 @@ function eventListeners(destinationData, databaseController, domUpdates) {
     submitButton.prop("disabled", disabled);
     updateTravelCost(destinationData, databaseController);
   });
+  
   submitButton.on("click", function() {
     submit(databaseController, domUpdates);
   });

@@ -29,13 +29,11 @@ class DomUpdate {
   }
 
   updateTotalCost(filteredData,type) {
-    console.log(filteredData)
     let total = Math.round(filteredData.reduce((sum,trip) => {
-
       sum = sum + (trip.adminFee ||trip.cost)
       return sum;
     },0))
-    $(this.totalIncome).text(`${type}: $${total}`);
+    $(this.totalIncome).text(`${type}: ${total}`);
   }
 
   displayLineChart(clientTripsData) {
@@ -111,7 +109,6 @@ class DomUpdate {
     });
   }
   async updateUser(authUser,databaseController) {
-    console.log(authUser.whoAmI())
     switch (authUser.whoAmI()) {
       case "admin":
         let adminTripData = await databaseController.fetchAllTrips();

@@ -6,7 +6,6 @@ class Admin extends User {
     this.id = info.id;
   }
 
-
 }
 
 export default Admin;

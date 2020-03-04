@@ -85,7 +85,7 @@ describe("Database fetch tests", function () {
         "suggestedActivities": []
      }
     );
-    
+
     databaseController.bookTrip(data);
 
     expect(global.fetch).to.be.called(1);
@@ -104,8 +104,39 @@ describe("Database fetch tests", function () {
     expect(global.fetch).to.be.called(1);
   });
 
+  it('should delete a trip', function () {
+    let id ='1';
+    let data = JSON.stringify({
+      id: parseInt(id)
+    })
+    databaseController.deleteTrip(id);
 
+    expect(global.fetch).to.be.called(1);
+    expect(global.fetch).to.be.called.with(BASE_URL + TRIP_ENDPOINT, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: data
+    })
+  });
 
+  it('should approve a trip', function () {
+    let id ='1';
+    let data = JSON.stringify({
+      id: parseInt(id),
+      status: "approved"
+    })
+    databaseController.approveTrip(id);
 
+    expect(global.fetch).to.be.called(1);
+    expect(global.fetch).to.be.called.with(BASE_URL + UPDATE_TRIP_ENDPOINT, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: data
+    })
+  });
 
 });
