@@ -26,9 +26,15 @@ class DatabaseController {
       if (response.role === "client") {
         this.authUser = new Traveler(response);
         domUpdates.updateUser(this.authUser, this);
+        return {
+          failed:false
+        }
       } else {
         this.authUser = new Admin(response);
         domUpdates.updateUser(this.authUser, this);
+        return {
+          failed:false
+        }
       }
     } else {
       return response;
@@ -165,6 +171,7 @@ class DatabaseController {
     // });
     // //      "tripID":456789123,
     // console.log(data)
+    console.log(data)
     let response = await fetch(
       BASE_URL + TRIP_ENDPOINT, {
         method: "POST",

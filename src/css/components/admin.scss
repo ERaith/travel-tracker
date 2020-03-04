@@ -1,6 +1,8 @@
 .admin-page {
+  background-color: $primary-background;
   display: flex;
   flex-direction: row;
+  padding-top: 3rem;
 }
 
 .admin-trips {

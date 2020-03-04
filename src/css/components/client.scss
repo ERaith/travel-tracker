@@ -1,3 +1,10 @@
+.client-page{
+  background-color: $primary-background;
+  align-items: flex-start;
+  padding-top: 3rem;
+  @include flexColumn();
+}
+
 section {
   display: flex;
   flex-direction: row;
@@ -18,7 +25,6 @@ section {
 }
 
 .table-wrapper {
-  width: 80%;
   background-color: $primary-background;
   @include margin($margin, $margin, $margin, $margin);
 }
