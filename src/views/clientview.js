@@ -13,10 +13,6 @@ export function generateClientView(
   databaseController
 ) {
   let clientHTML = `
-  <header>
-    <h1>Welcome to Travel Tracker</h1>
-  </header>
-  <main>
     <section class="client-data">
       <article class="client-trips">
       <div class = "total-cost">
@@ -47,9 +43,8 @@ export function generateClientView(
     <img id = "preview-trip"src=  "https://images.unsplash.com/photo-1489171084589-9b5031ebcf9b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2089&q=80" alt = "trip preview">
       </article>
     </section>
-  </main>
     `;
-  $(domUpdates.body).append(clientHTML);
+  $(domUpdates.main).append(clientHTML);
   generateFormHTML(destinationData);
   initDatePicker();
   eventListeners(destinationData, databaseController, domUpdates);

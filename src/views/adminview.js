@@ -4,20 +4,22 @@ export function generateAdminView(domUpdates, adminTripData,databaseController) 
   let adminBaseHTML = `
     <div class="login-page">
       <h1>Welcome Admin!</h1>
+      <h1>Total Cost: <span id = "totalIncome"></span></h1>
       <section class="client-data">
         <article class="client-trips">
         <input id="search" type="text" placeholder="Search"/>
-          <div class="table-wrap">
-            <div class="table-responsive">
-            </div>
-          </div>
+
           </div>
         </article>
       </section>
     </div>
+    <div class="table-container">
+      <div class="table-responsive">
+      </div>
+    </div>
     `;
 
-  $(domUpdates.body).append(adminBaseHTML);
+  $(domUpdates.main).append(adminBaseHTML);
 
   generateTableHTML(adminTripData);
   let search = $('#search')
@@ -30,6 +32,7 @@ export function generateAdminView(domUpdates, adminTripData,databaseController) 
       updateUI(search,databaseController,$(event.target))
     }
   })
+    updateTotalCost(adminTripData);
 }
 
 async function updateUI(search,databaseController,eventTarget){
@@ -43,22 +46,32 @@ function filter(searchText,adminTripData) {
     return (new RegExp(searchText,'i')).test(trip.clientName);
   })
   generateTableHTML(filteredData);
+  updateTotalCost(filteredData);
+}
+
+function updateTotalCost(filteredData) {
+  let total = filteredData.reduce((sum,trip) => {
+    sum +=trip.adminFee;
+    return sum;
+
+  },0)
+  $('#totalIncome').text(`$${total}`);
 }
 
 function generateTableHTML(adminTripData) {
   let rowsHTML = adminTripData.reduce((rowHTML, trip) => {
     let row = `
-    <tr>
-      <th>${trip.clientName}</th>
-      <th id="${trip.id}">#${trip.id}</th>
-      <th id="destination">${trip.destination}</th>
-      <th id="travelers-col">${trip.travelers}</th>
-      <th id="date">${trip.date}</th>
-      <th id="duration">${trip.duration}</th>
-      <th id="status">${trip.status}</th>
-      <th id="cost">${trip.cost}</th>
-      <th id="approve"><button id = "approve-${trip.id}">Approve</button></th>
-      <th id="delete-${trip.id}"><button id = "delete-${trip.id}">Deny</button></th>
+    <tr class = "flex-table row">
+      <td class = "flex-row">${trip.clientName}</th>
+      <td class = "flex-row" id="${trip.id}">#${trip.id}</th>
+      <td class = "flex-row" id="destination">${trip.destination}</th>
+      <td class = "flex-row" id="travelers-col">${trip.travelers}</th>
+      <td class = "flex-row" id="date">${trip.date}</th>
+      <td class = "flex-row" id="duration">${trip.duration}</th>
+      <td class = "flex-row" id="status">${trip.status}</th>
+      <td class = "flex-row" id="cost">${trip.adminFee}</th>
+      <td class = "flex-row" id="approve"><button id = "approve-${trip.id}">Approve</button></th>
+      <td class = "flex-row" id="delete-${trip.id}"><button id = "delete-${trip.id}">Deny</button></th>
     </tr>
     `;
     rowHTML = rowHTML.concat(" ", row);
@@ -67,17 +80,17 @@ function generateTableHTML(adminTripData) {
   let tableHTML = `
   <table data-toggle="table" id="table_data" class="table table-bordered table-hover">
   <thead class="theme-dark">
-    <tr class = 'header'>
-    <th id="userName">User</th>
-    <th id="tripID">Trip#</th>
-    <th id="destination">Desitination</th>
-    <th id="travelers-head">Travelers</th>
-    <th id="date">Date</th>
-    <th id="duration">Duration(days)</th>
-    <th id="status">Status</th>
-    <th id="cost">Cost</th>
-    <th id="approve">Approve</th>
-    <th id="deny">Deny</th>
+    <tr class = 'flex-table header'>
+    <th class = "flex-row" id="userName">User</th>
+    <th class = "flex-row" id="tripID">Trip#</th>
+    <th class = "flex-row" id="destination">Desitination</th>
+    <th class = "flex-row" id="travelers-head">Travelers</th>
+    <th class = "flex-row" id="date">Date</th>
+    <th class = "flex-row" id="duration">Duration(days)</th>
+    <th class = "flex-row" id="status">Status</th>
+    <th class = "flex-row" id="cost">Admin Fee</th>
+    <th class = "flex-row" id="approve">Approve</th>
+    <th class = "flex-row" id="deny">Deny</th>
     </tr>
   </thead>
   <tbody>

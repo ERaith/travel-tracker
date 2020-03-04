@@ -1,0 +1,90 @@
+$table-header: #1976D2;
+$table-header-border: #1565C0;
+$table-border: #d9d9d9;
+$row-bg: #f4f2f1;
+$header-bg: #1565C0;
+
+.table-container {
+
+  padding-top: 30px;
+  flex-grow: 1;
+  font-size: $font-size-medium;
+  overflow-y:scroll;
+  margin: 1em auto;
+width: 90%;
+max-width: 600px;
+border-collapse: collapse;
+
+}
+
+.table {
+  margin: 0 0 40px 0;
+
+
+
+  thead {
+    font-weight: 900;
+    color: $font-color-on-primary;
+    background: $on-primary;
+    font-size: $font-size-large;
+  }
+
+  tbody {
+    tr {
+      height: 2rem;
+      background: #f6f6f6;
+      color:black;
+
+      &:nth-of-type(odd) {
+        background: #e9e9e9;
+      }
+
+      &:hover {
+        background: $highlight;
+      }
+    }
+  }
+
+
+  th,
+  td {
+    vertical-align: middle;
+  }
+
+  .flex-row {
+  width: 25%;
+}
+
+.flex-row, .flex-cell {
+  text-align: center;
+}
+
+@media only screen and (max-width: 767px) {
+
+  .table-container {
+    //display: block;
+  }
+  th, td {
+    width: auto;
+    display: block;
+    border: 0;
+  }
+
+  th {
+    border-left: solid 1px $table-header-border;
+    border-right: solid 1px $table-header-border;
+    border-bottom: solid 1px $table-header-border;
+  }
+
+  td {
+    border-left: solid 1px $table-border;
+    border-right: solid 1px $table-border;
+    border-bottom: solid 1px $table-border;
+  }
+
+  .flex-row {
+    width: 100%;
+  }
+}
+
+}

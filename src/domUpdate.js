@@ -5,12 +5,12 @@ import { generateAdminView } from "./views/adminview";
 
 class DomUpdate {
   constructor() {
-    this.body = $("body");
+    this.main = $("main");
     this.user = "";
   }
 
   loginForm(databaseController) {
-    generateLogin(this, databaseController, this.body);
+    generateLogin(this, databaseController, this.main);
   }
 
   clientView(clientTripsData, totalTripCost, destinationData,databaseController) {
@@ -24,7 +24,7 @@ class DomUpdate {
   }
 
   clearView() {
-    $(this.body).empty();
+    $(this.main).empty();
   }
   displayLineChart(clientTripsData) {
 

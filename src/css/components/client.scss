@@ -40,7 +40,7 @@ section {
     justify-content: space-around;
     flex-grow: 1;
     height: 100%;
-    background-color: $secondary-background;
+    background-color: $component-background;
     @include margin($margin, $margin, $margin, $margin);
     box-shadow: $box-shadow;
   }
@@ -50,15 +50,18 @@ section {
     flex-direction: column;
     flex-grow: 1;
     height: 100%;
-    background-color: $secondary-background;
+    background-color: $component-background;
     @include margin($margin, $margin, $margin, $margin);
-    @include padding($padding, $padding, $padding, $padding);
+    @include padding(2rem, 2rem, 2rem, 2rem);
     box-shadow: $box-shadow;
   }
 }
 
 .client-data {
   @include border-radius($radius, $radius, 0, 0);
+  height:40rem;
+  @include margin($margin, $margin, $margin, $margin);
+  @include padding($padding, $padding, $padding, $padding);
   // overflow: hidden;
 }
 
@@ -68,24 +71,24 @@ section {
 }
 
 .table-wrap {
+
   padding-top: 30px;
   flex-grow: 1;
   font-size: $font-size-medium;
   overflow-y:scroll;
-  padding-right: 17px;
-  box-sizing: content-box;
 
 }
 
 .table {
-
   margin: 0 0 40px 0;
-  width: 100%;
+
+
 
   thead {
     font-weight: 900;
-    color: #ffffff;
-    background: $highlight;
+    color: $font-color-on-primary;
+    background: $on-primary;
+    font-size: $font-size-large;
   }
 
   tbody {
@@ -111,11 +114,6 @@ section {
   }
 
 }
-
-input#table-filter {
-  width: 310px;
-}
-
 
 .chart-wrapper {
   width: 50rem;

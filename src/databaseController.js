@@ -59,25 +59,44 @@ class DatabaseController {
 
       let destination = destinations.find(destination => {
         return destination.id === trip.destinationID;
-      }).destination;
+      });
+
+      let cost =
+        (destination.estimatedLodgingCostPerDay * trip.duration +
+          destination.estimatedFlightCostPerPerson * trip.travelers) * 1.1;
+      cost = Math.round(cost);
+
+      let adminFee =
+        (destination.estimatedLodgingCostPerDay * trip.duration +
+          destination.estimatedFlightCostPerPerson * trip.travelers) * .1;
+      cost = Math.round(cost);
 
       return {
         ...trip,
         clientName: name,
-        destination: destination
+        destination: destination.destination,
+        cost:cost,
+        adminFee:adminFee
       }
     })
     allTrips.sort((a, b) => {
       return moment(b.date) - moment(a.date)
     })
+
+    console.log(allTrips)
+
+
+
     return allTrips;
   }
 
   async fetchUserTrips(authUser) {
     let allTrips = await this.fetchAllTrips();
-    let userTrips = allTrips.trips.filter(trip => {
+
+    let userTrips = allTrips.filter(trip => {
       return trip.userID === authUser.id;
     });
+    console.log(userTrips)
 
     let destinations = await this.fetchDestinations();
     // id: 55
@@ -196,8 +215,8 @@ class DatabaseController {
     //  }
 
     let data = JSON.stringify({
-      id:parseInt(id),
-      status:"approved"
+      id: parseInt(id),
+      status: "approved"
     })
 
     console.log(data)
@@ -224,7 +243,7 @@ class DatabaseController {
     //   "id": 92829
     // }
     let data = JSON.stringify({
-      id:parseInt(id)
+      id: parseInt(id)
     })
     console.log(data)
 
