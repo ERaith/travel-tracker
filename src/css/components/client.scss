@@ -16,7 +16,6 @@ section {
     background-color: $secondary-background;
     display: flex;
     flex-grow: 1;
-
     @include margin($margin, $margin, $margin, $margin);
     box-shadow: $box-shadow;
   }
@@ -28,8 +27,9 @@ section {
     max-width: 415px;
     @include margin($margin, $margin, $margin, $margin);
     box-shadow: $box-shadow;
-    img{
-      width:400px;
+
+    img {
+      width: 400px;
     }
   }
 
@@ -59,7 +59,7 @@ section {
 
 .client-data {
   @include border-radius($radius, $radius, 0, 0);
-  height:40rem;
+  height: 40rem;
   @include margin($margin, $margin, $margin, $margin);
   @include padding($padding, $padding, $padding, $padding);
   // overflow: hidden;
@@ -67,56 +67,6 @@ section {
 
 .client-trip-preperation {
   @include border-radius(0, 0, $radius, $radius);
-
-}
-
-.table-wrap {
-
-  padding-top: 30px;
-  flex-grow: 1;
-  font-size: $font-size-medium;
-  overflow-y:scroll;
-
-}
-
-.table {
-  margin: 0 0 40px 0;
-
-
-
-  thead {
-    font-weight: 900;
-    color: $font-color-on-primary;
-    background: $on-primary;
-    font-size: $font-size-large;
-  }
-
-  tbody {
-    tr {
-      height: 2rem;
-      background: #f6f6f6;
-      color:black;
-
-      &:nth-of-type(odd) {
-        background: #e9e9e9;
-      }
-
-      &:hover {
-        background: $highlight;
-      }
-    }
-  }
-
-
-  th,
-  td {
-    vertical-align: middle;
-  }
-
-}
-
-.chart-wrapper {
-  width: 50rem;
 }
 
 .destination-picker {
@@ -140,7 +90,6 @@ section {
     width: 70%;
     @include padding($padding, $padding, $padding, $padding);
   }
-
 }
 
 .button-container {

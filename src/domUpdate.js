@@ -6,6 +6,7 @@ import { generateAdminView } from "./views/adminview";
 class DomUpdate {
   constructor() {
     this.main = $("main");
+    this.totalIncome = $("#totalIncome");
     this.user = "";
   }
 
