@@ -1,0 +1,22 @@
+.admin-page {
+  display:flex;
+  flex-direction: row;
+
+}
+.admin-trips {
+  flex-grow: 3;
+  margin-left: 2rem;
+}
+
+.client-names {
+  flex-grow:1;
+}
+.client {
+  display:flex;
+  flex-direction: column;
+  background-color: $secondary-background;
+  @include margin($margin, $margin, $margin, $margin);
+  @include padding($padding, $padding, $padding, $padding);
+    @include border-radius(0, 0, $radius, $radius);
+
+}

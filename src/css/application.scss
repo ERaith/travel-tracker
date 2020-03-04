@@ -1,10 +1,13 @@
 // @import "base/reset";
 @import "base/functions";
 @import "base/mixins";
-@import "base/table";
 @import "base/variables";
+@import "base/table";
 @import "components/login";
 @import "components/client";
+@import "components/header";
+@import "components/admin";
+
 
 @import '~js-datepicker/src/datepicker';
 
@@ -23,9 +26,8 @@ body {
   flex-direction: column;
 }
 
-header {
+main {
   background-color: $primary-background;
-  color:white;
 }
 
 

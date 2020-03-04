@@ -1,5 +1,5 @@
 import $ from "jquery";
-export function generateLogin(domUpdates, databaseController, body) {
+export function generateLogin(domUpdates, databaseController, main) {
 
   let loginHtml = `
     <div class="login-page">
@@ -12,7 +12,7 @@ export function generateLogin(domUpdates, databaseController, body) {
       </div>
     </div>
     `;
-  $(body).append(loginHtml);
+  $(main).append(loginHtml);
 
   let loginButton = $("button");
   loginButton.click(function(event) {
@@ -21,6 +21,7 @@ export function generateLogin(domUpdates, databaseController, body) {
     var password = $("#password").val();
     // Load Default user
     name = 'agency';
+    // name = "Ham Leadbeater"
     password = 'travel2020'
 
     databaseController.login(name, password, domUpdates);

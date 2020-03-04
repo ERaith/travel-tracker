@@ -1,30 +1,21 @@
 @mixin border-radius($top-left-radius,$top-right-radius,$bottom-left-radius,$bottom-right-radius) {
   -webkit-border-radius: $radius;
-     -moz-border-radius: $radius;
-      -ms-border-radius: $radius;
-          border-radius: $radius;
-          border-top-left-radius: $top-left-radius;
-          border-top-right-radius: $top-right-radius;
-          border-bottom-left-radius: $bottom-left-radius;
-          border-bottom-right-radius: $bottom-right-radius;
+  -moz-border-radius: $radius;
+  -ms-border-radius: $radius;
+  border-radius: $radius;
+  border-top-left-radius: $top-left-radius;
+  border-top-right-radius: $top-right-radius;
+  border-bottom-left-radius: $bottom-left-radius;
+  border-bottom-right-radius: $bottom-right-radius;
 }
-
-
 //Padding mixin
 @mixin padding($top, $right, $bottom, $left) {
-  padding-top: $top;
-  padding-right: $right;
-  padding-bottom: $bottom;
-  padding-left: $left;
+  padding: $top $right $bottom $left;
 }
 //Margin mixin
 @mixin margin($top, $right, $bottom, $left) {
-  margin-top: $top;
-  margin-right: $right;
-  margin-bottom: $bottom;
-  margin-left: $left;
+  margin: $top $right $bottom $left;
 }
-
 @mixin button() {
   font-family: $font;
   text-transform: uppercase;
@@ -38,14 +29,17 @@
   -webkit-transition: all 0.3 ease;
   transition: all 0.3 ease;
   cursor: pointer;
-  &:hover,:active,:focus {
+
+  &:hover,
+  :active,
+  :focus {
     background: $highlight;
   }
-  &:disabled{
-    background:grey;
+
+  &:disabled {
+    background: grey;
   }
 }
-
 @mixin form() {
   margin: 0 auto 100px;
   padding: 45px;
@@ -55,8 +49,7 @@
   z-index: 1;
   background: $primary-background;
 }
-
-@mixin input(){
+@mixin input() {
   font-family: $font;
   outline: 0;
   background: #f2f2f2;

@@ -1,0 +1,8 @@
+header {
+  background-color: $on-primary;
+  color:white;
+  height:5rem;
+  @include padding($padding, $padding, $padding, $padding);
+  display:flex;
+  justify-content: space-between;
+}
