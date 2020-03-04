@@ -175,7 +175,7 @@ function generateTableHTML(clientTripsData) {
     }, "");
 
   let tableHTML = `
-  <h2>Trip Data</h2>
+  <center><h1>-Trip Data-</h1></center>
   <table data-toggle="table" id="table_data" class="table table-bordered table-hover">
   <thead>
     <tr class = 'flex-table header'>

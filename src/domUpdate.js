@@ -1,13 +1,7 @@
-const {
-  generateLogin
-} = require("./views/login");
+const {generateLogin} = require("./views/login");
 import $ from "jquery";
-import {
-  generateClientView
-} from "./views/clientview";
-import {
-  generateAdminView
-} from "./views/adminview";
+import {generateClientView} from "./views/clientview";
+import {generateAdminView} from "./views/adminview";
 
 class DomUpdate {
   constructor() {

@@ -15,12 +15,11 @@ section {
 
 .client-trip-preview {
   flex-grow: 3;
-  min-width: 300px;
-  max-width: 700px;
   box-shadow: $box-shadow;
-
+  overflow: hidden;
   img {
-    height: 100%;
+    width: 100%;
+    object-fit: contain;
   }
 }
 
@@ -60,8 +59,7 @@ section {
   height: 100%;
   color: white;
   background-color: $secondary-background;
-  min-width: 300px;
-  max-width: 700px;
+  width:500px;
   box-shadow: $box-shadow;
 
   .dates {

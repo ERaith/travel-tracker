@@ -20,5 +20,5 @@
   background-color: $secondary-background;
   @include margin($margin, $margin, $margin, $margin);
   @include padding($padding, $padding, $padding, $padding);
-  @include border-radius(0, 0, $radius, $radius);
+  @include border-radius($radius, $radius, $radius, $radius);
 }
