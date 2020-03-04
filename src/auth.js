@@ -7,7 +7,7 @@ export function authenticate(userName, passwordAttempt) {
     return user.name === userName;
   });
 
-  
+
   if (curUser) {
     let hash = curUser.password;
     if (bcrypt.compareSync(passwordAttempt, hash)) {
@@ -19,7 +19,9 @@ export function authenticate(userName, passwordAttempt) {
       };
     }
   } else {
-    return { message: "Login Failed" };
+    return {
+      message: "Login Failed"
+    };
   }
 }
 

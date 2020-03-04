@@ -61,12 +61,7 @@
   box-sizing: border-box;
   font-size: $font-size-medium;
 }
-@mixin flexColumn(){
-  display:flex;
+@mixin flexColumn() {
+  display: flex;
   flex-direction: column;
-}
-
-@mixin flexRow(){
-  display:flex;
-  flex-direction: row;
 }

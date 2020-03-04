@@ -24,17 +24,6 @@ class Traveler extends User {
     return cost;
   }
 
-  calcTotalTripCost(clientTripsData) {
-    let tripsSum = clientTripsData.reduce((sum, trip) => {
-      sum += trip.cost;
-      return sum;
-    }, 0);
-  
-    return tripsSum.toLocaleString("us-US", {
-      style: "currency",
-      currency: "USD"
-    });
-  }
   generateRandomNumber() {
       return Math.floor(1000 + Math.random() * 9000);
   }
@@ -58,7 +47,6 @@ class Traveler extends User {
       "suggestedActivities": []
     });
     //      "tripID":456789123,
-    console.log(tripData)
     return tripData;
   }
 
